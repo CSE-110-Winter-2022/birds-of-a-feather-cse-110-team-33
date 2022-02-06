@@ -1,14 +1,19 @@
 package com.example.birds_of_a_feather_cse_110_team_33;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
+    protected RecyclerView personsRecyclerView;
+    protected RecyclerView.LayoutManager personsLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // doesn't actually do/show anything yet
     }
 }
