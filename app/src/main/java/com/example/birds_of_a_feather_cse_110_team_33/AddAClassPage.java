@@ -1,14 +1,11 @@
-package com.example.birds_of_a_feather_cse_110_team_33.model;
+package com.example.birds_of_a_feather_cse_110_team_33;
 
 
-import com.example.birds_of_a_feather_cse_110_team_33.R;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -102,7 +99,7 @@ public class AddAClassPage extends AppCompatActivity {
 
     public void onGoBackAACPClicked(View view) {
 
-        Intent intent = new Intent(this,UserClassList.class);
+        Intent intent = new Intent(this, UserClassList.class);
         intent.putExtra("addNum",saveClicks);
         setResult(RESULT_OK, intent);
 

@@ -1,5 +1,6 @@
-package com.example.birds_of_a_feather_cse_110_team_33.model;
+package com.example.birds_of_a_feather_cse_110_team_33;
 
+import com.example.birds_of_a_feather_cse_110_team_33.AddAClassPage;
 import com.example.birds_of_a_feather_cse_110_team_33.R;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,12 +11,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.birds_of_a_feather_cse_110_team_33.MainActivity;
-
-import java.util.ArrayList;
 
 public class UserClassList extends AppCompatActivity {
 
@@ -98,7 +96,7 @@ public class UserClassList extends AppCompatActivity {
     }
 
     public void onAddAClassClicked(View view) {
-        Intent intent = new Intent(this,AddAClassPage.class);
+        Intent intent = new Intent(this, AddAClassPage.class);
         //Send how many were created so we know where to start from.
 
         intent.putExtra("addNumB",howManyCreatedThusFar);

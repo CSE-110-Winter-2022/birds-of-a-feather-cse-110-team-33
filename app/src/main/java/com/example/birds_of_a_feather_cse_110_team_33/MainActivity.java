@@ -17,7 +17,7 @@ import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
 
-import com.example.birds_of_a_feather_cse_110_team_33.model.UserClassList;
+import com.example.birds_of_a_feather_cse_110_team_33.UserClassList;
 
 
 public class MainActivity extends AppCompatActivity {
