@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Birdsofafeathercse110team33">
         <activity
-            android:name=".model.AddAClassPage"
+            android:name=".AddAClassPage"
             android:exported="false" />
         <activity
-            android:name=".model.UserClassList"
+            android:name=".UserClassList"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

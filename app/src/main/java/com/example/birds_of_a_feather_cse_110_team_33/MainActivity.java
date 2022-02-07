@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.birds_of_a_feather_cse_110_team_33.model.UserClassList;
-
 public class MainActivity extends AppCompatActivity {
     protected RecyclerView personsRecyclerView;
     protected RecyclerView.LayoutManager personsLayoutManager;
