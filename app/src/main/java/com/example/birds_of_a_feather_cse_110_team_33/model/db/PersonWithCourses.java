@@ -22,7 +22,6 @@ public class PersonWithCourses implements IPerson {
     @Override
     public String getName() { return this.person.name; }
 
-    // gonna have to implement algorithm elsewhere
     @Override
     public List<Course> getCourses() { return this.courses; }
 
@@ -31,4 +30,8 @@ public class PersonWithCourses implements IPerson {
 
     @Override
     public String getPhoto() { return this.person.photo; }
+
+    // IMPLEMENT HERE TO GET SHARED COURSES!!!!
+    @Override
+    public List<Course> getSharedCourses(IPerson classMate) { return this.courses; }
 }

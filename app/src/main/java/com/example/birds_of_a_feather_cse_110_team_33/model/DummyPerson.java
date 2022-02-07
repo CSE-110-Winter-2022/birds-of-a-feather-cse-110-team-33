@@ -7,7 +7,7 @@ import java.util.List;
 
 // use this class for base testing
 // if the database isn't working -_-
-public class DummyPerson  implements IPerson {
+public class DummyPerson implements IPerson {
     private final int id;
     private final String name;
     private final List<Course> courses;
@@ -31,4 +31,8 @@ public class DummyPerson  implements IPerson {
 
     @Override
     public String getPhoto() { return photo; }
+
+    // IMPLEMENT HERE
+    @Override
+    public List<Course> getSharedCourses(IPerson classMate) { return null; }
 }

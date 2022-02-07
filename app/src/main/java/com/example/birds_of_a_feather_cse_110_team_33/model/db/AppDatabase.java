@@ -23,4 +23,5 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract PersonWithCoursesDao personsWithCoursesDao();
+    public abstract CoursesDao coursesDao();
 }

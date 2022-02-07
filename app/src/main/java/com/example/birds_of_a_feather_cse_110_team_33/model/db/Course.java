@@ -18,6 +18,11 @@ public class Course {
         this.course_num = course_num;
     }
 
+    public String getSubject() { return subject; }
+    public String getCourseNum() { return course_num; }
+    public String getQuarter() { return quarter; }
+    public String getYear() { return year + ""; }
+
     @PrimaryKey
     @ColumnInfo(name = "id")
     public int courseId;

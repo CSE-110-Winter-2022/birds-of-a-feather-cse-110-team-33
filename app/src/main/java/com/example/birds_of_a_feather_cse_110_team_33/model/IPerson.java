@@ -10,5 +10,5 @@ public interface IPerson {
     String getName();
     List<Course> getCourses();
     String getPhoto();
-    // shared courses method?
+    List<Course> getSharedCourses(IPerson classMate);
 }
