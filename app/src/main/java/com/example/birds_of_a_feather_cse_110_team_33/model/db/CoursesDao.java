@@ -26,4 +26,5 @@ public interface CoursesDao {
 
     @Query("SELECT count(*) FROM courses")
     int count();
+
 }

@@ -3,16 +3,22 @@ package com.example.birds_of_a_feather_cse_110_team_33;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
+
+import com.example.birds_of_a_feather_cse_110_team_33.model.UserClassList;
+
 
 public class MainActivity extends AppCompatActivity {
     protected AppDatabase db;
@@ -76,5 +82,10 @@ public class MainActivity extends AppCompatActivity {
         Context context = view.getContext();
         Intent intent = new Intent(context, HomePageActivity.class);
         context.startActivity(intent);
+    }
+
+
+    public void onClassBtnClicked(View view) {
+        startActivity(new Intent(this, UserClassList.class));
     }
 }
