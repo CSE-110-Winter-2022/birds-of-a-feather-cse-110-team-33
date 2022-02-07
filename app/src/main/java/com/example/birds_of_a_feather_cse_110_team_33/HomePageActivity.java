@@ -17,6 +17,7 @@ public class HomePageActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager personsLayoutManager;
     private PersonsViewAdapter personsViewAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,3 +40,4 @@ public class HomePageActivity extends AppCompatActivity {
         // implementation for User Story: ON/OFF Search
     }
 }
+
