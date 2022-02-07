@@ -21,13 +21,18 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.DataInteraction;
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
@@ -42,89 +47,89 @@ public class UserStoryOneOutputVerification {
 
     @Test
     public void userStoryOneOutputVerification() {
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.class_list_btn), withText("Class List"),
+        ViewInteraction materialButton = Espresso.onView(
+                Matchers.allOf(ViewMatchers.withId(R.id.class_list_btn), ViewMatchers.withText("Class List"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        ViewMatchers.withId(android.R.id.content),
                                         0),
                                 1),
-                        isDisplayed()));
-        materialButton.perform(click());
+                        ViewMatchers.isDisplayed()));
+        materialButton.perform(ViewActions.click());
 
-        ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.add_field_button_LD), withText("Add Class"),
+        ViewInteraction materialButton2 = Espresso.onView(
+                Matchers.allOf(ViewMatchers.withId(R.id.add_field_button_LD), ViewMatchers.withText("Add Class"),
                         childAtPosition(
-                                allOf(withId(R.id.parent_linear_layout),
+                                Matchers.allOf(ViewMatchers.withId(R.id.parent_linear_layout),
                                         childAtPosition(
-                                                withId(android.R.id.content),
+                                                ViewMatchers.withId(android.R.id.content),
                                                 0)),
                                 1),
-                        isDisplayed()));
-        materialButton2.perform(click());
+                        ViewMatchers.isDisplayed()));
+        materialButton2.perform(ViewActions.click());
 
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.course_subject_edit_text),
+        ViewInteraction appCompatEditText = Espresso.onView(
+                Matchers.allOf(ViewMatchers.withId(R.id.course_subject_edit_text),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        ViewMatchers.withId(android.R.id.content),
                                         0),
                                 1),
-                        isDisplayed()));
-        appCompatEditText.perform(replaceText("CSE"), closeSoftKeyboard());
+                        ViewMatchers.isDisplayed()));
+        appCompatEditText.perform(ViewActions.replaceText("CSE"), ViewActions.closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.course_number_edit_text),
+        ViewInteraction appCompatEditText2 = Espresso.onView(
+                Matchers.allOf(ViewMatchers.withId(R.id.course_number_edit_text),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        ViewMatchers.withId(android.R.id.content),
                                         0),
                                 3),
-                        isDisplayed()));
-        appCompatEditText2.perform(replaceText("152A"), closeSoftKeyboard());
+                        ViewMatchers.isDisplayed()));
+        appCompatEditText2.perform(ViewActions.replaceText("152A"), ViewActions.closeSoftKeyboard());
 
-        ViewInteraction appCompatSpinner = onView(
-                allOf(withId(R.id.years_spinner),
+        ViewInteraction appCompatSpinner = Espresso.onView(
+                Matchers.allOf(ViewMatchers.withId(R.id.years_spinner),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        ViewMatchers.withId(android.R.id.content),
                                         0),
                                 7),
-                        isDisplayed()));
-        appCompatSpinner.perform(click());
+                        ViewMatchers.isDisplayed()));
+        appCompatSpinner.perform(ViewActions.click());
 
-        DataInteraction materialTextView = onData(anything())
+        DataInteraction materialTextView = Espresso.onData(Matchers.anything())
                 .inAdapterView(childAtPosition(
-                        withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
+                        ViewMatchers.withClassName(Matchers.is("android.widget.PopupWindow$PopupBackgroundView")),
                         0))
                 .atPosition(6);
-        materialTextView.perform(click());
+        materialTextView.perform(ViewActions.click());
 
-        ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.save_class_button), withText("Save Class"),
+        ViewInteraction materialButton3 = Espresso.onView(
+                Matchers.allOf(ViewMatchers.withId(R.id.save_class_button), ViewMatchers.withText("Save Class"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        ViewMatchers.withId(android.R.id.content),
                                         0),
                                 0),
-                        isDisplayed()));
-        materialButton3.perform(click());
+                        ViewMatchers.isDisplayed()));
+        materialButton3.perform(ViewActions.click());
 
-        ViewInteraction materialButton4 = onView(
-                allOf(withId(R.id.go_back_btnAACP), withText("Go Back"),
+        ViewInteraction materialButton4 = Espresso.onView(
+                Matchers.allOf(ViewMatchers.withId(R.id.go_back_btnAACP), ViewMatchers.withText("Go Back"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        ViewMatchers.withId(android.R.id.content),
                                         0),
                                 9),
-                        isDisplayed()));
-        materialButton4.perform(click());
+                        ViewMatchers.isDisplayed()));
+        materialButton4.perform(ViewActions.click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.course_edit_text), withText("CSE 152A Winter 2022"),
-                        withParent(withParent(withId(R.id.parent_linear_layout))),
-                        isDisplayed()));
-        textView.check(matches(withText("CSE 152A Winter 2022")));
+        ViewInteraction textView = Espresso.onView(
+                Matchers.allOf(ViewMatchers.withId(R.id.course_edit_text), ViewMatchers.withText("CSE 152A Winter 2022"),
+                        ViewMatchers.withParent(ViewMatchers.withParent(ViewMatchers.withId(R.id.parent_linear_layout))),
+                        ViewMatchers.isDisplayed()));
+        textView.check(ViewAssertions.matches(ViewMatchers.withText("CSE 152A Winter 2022")));
     }
 
     private static Matcher<View> childAtPosition(
