@@ -17,7 +17,6 @@ public class HomePageActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager personsLayoutManager;
     private PersonsViewAdapter personsViewAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
