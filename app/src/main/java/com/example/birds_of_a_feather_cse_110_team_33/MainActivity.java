@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+
 import android.content.Context;
 
 import android.content.Intent;
@@ -18,6 +19,11 @@ import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
 
 import com.example.birds_of_a_feather_cse_110_team_33.UserClassList;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -89,4 +95,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClassBtnClicked(View view) {
         startActivity(new Intent(this, UserClassList.class));
     }
+
+
+
 }

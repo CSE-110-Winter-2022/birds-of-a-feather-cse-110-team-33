@@ -64,7 +64,9 @@ public class AddAClassPage extends AppCompatActivity {
 
     public void onSaveClassClicked(View view) {
 
+
         //Add new class to the User/Person #0 object, and add the class to the course database
+
 
         SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

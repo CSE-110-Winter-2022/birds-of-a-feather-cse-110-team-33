@@ -23,6 +23,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
 
+
     public static void useTestSingleton(Context context) {
         singletonInstance = Room.inMemoryDatabaseBuilder(context, AppDatabase.class)
                 .allowMainThreadQueries()
@@ -30,6 +31,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract PersonDao personDao();
+
 
 
     public abstract CoursesDao coursesDao();
