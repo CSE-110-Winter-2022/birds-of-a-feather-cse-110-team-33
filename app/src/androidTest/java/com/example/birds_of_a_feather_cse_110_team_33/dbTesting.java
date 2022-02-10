@@ -1,12 +1,11 @@
 package com.example.birds_of_a_feather_cse_110_team_33;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import static org.junit.Assert.assertEquals;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
+
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
@@ -14,24 +13,35 @@ import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
 
-public class MainActivity extends AppCompatActivity {
-    protected AppDatabase db;
-    protected PersonDao personDao;
-    protected CoursesDao coursesDao;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setTitle("BoF Start");
+import java.io.IOException;
 
-        AppDatabase.useTestSingleton(this);
-        db = AppDatabase.singleton(this);
+@RunWith(AndroidJUnit4.class)
+public class dbTesting {
+    private PersonDao personDao;
+    private CoursesDao coursesDao;
+    private AppDatabase db;
+
+    @Before
+    public void createDb() {
+        Context context = ApplicationProvider.getApplicationContext();
+        AppDatabase.useTestSingleton(context);
+        db = AppDatabase.singleton(context);
         personDao = db.personDao();
         coursesDao = db.coursesDao();
+    }
 
-        // some testing pre-population
-        // base
+    @After
+    public void closeDb() throws IOException {
+        db.close();
+    }
+
+    @Test
+    public void testPersonsAddition() throws Exception {
         Person ethan = new Person("Ethan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         personDao.insert(ethan);
         Course ethan110 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "110");
@@ -70,11 +80,8 @@ public class MainActivity extends AppCompatActivity {
         coursesDao.insert(ryan110);
         coursesDao.insert(ryan112);
         coursesDao.insert(ryan132A);
-    }
 
-    public void onStartClicked(View view) {
-        Context context = view.getContext();
-        Intent intent = new Intent(context, HomePageActivity.class);
-        context.startActivity(intent);
+        assertEquals(personDao.count(), 4);
+        assertEquals(coursesDao.count(), 12);
     }
 }

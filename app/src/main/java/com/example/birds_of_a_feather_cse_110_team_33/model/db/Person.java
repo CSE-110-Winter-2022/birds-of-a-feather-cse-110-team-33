@@ -7,13 +7,24 @@ import androidx.room.PrimaryKey;
 // db for person
 @Entity(tableName = "persons")
 public class Person {
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    public int personId;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "person_id")
+    public int personId = 0;
 
-    @ColumnInfo(name = "first_name")
+    @ColumnInfo(name = "name")
     public String name;
 
     @ColumnInfo(name = "photo")
     public String photo;
+
+    public Person(String name, String photo) {
+        this.name = name;
+        this.photo = photo;
+    }
+    public int getPersonId() { return personId; }
+    public void setPersonId(int personId) { this.personId = personId; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getPhoto() { return photo; }
+    public void setPhoto(String photo) { this.photo = photo; }
 }

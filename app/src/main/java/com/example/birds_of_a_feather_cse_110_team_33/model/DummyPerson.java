@@ -1,34 +1,28 @@
 package com.example.birds_of_a_feather_cse_110_team_33.model;
 
-import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
+import androidx.room.ColumnInfo;
 
 import java.util.Arrays;
 import java.util.List;
 
 // use this class for base testing
 // if the database isn't working -_-
-public class DummyPerson  implements IPerson {
-    private final int id;
-    private final String name;
-    private final List<Course> courses;
-    private final String photo;
+public class DummyPerson {
+    public int personId;
+    public String name;
+    public String photo;
 
-    public DummyPerson(int id, String name, Course[] courses, String photo) {
-        this.id = id;
+    public DummyPerson(int personId, String name, String photo) {
+        this.personId = personId;
         this.name = name;
-        this.courses = Arrays.asList(courses);
         this.photo = photo;
     }
 
-    @Override
-    public int getId() { return id; }
-
-    @Override
-    public String getName() { return name; }
-
-    @Override
-    public List<Course> getCourses() { return courses; }
-
-    @Override
-    public String getPhoto() { return photo; }
+    public DummyPerson(String name) { this.name = name; }
+    public int getDummyPersonId() { return personId; }
+    public void setDummyPersonId(int personId) { this.personId = personId; }
+    public String getDummyName() { return name; }
+    public void setDummyName(String name) { this.name = name; }
+    public String getDummyPhoto() { return photo; }
+    public void setDummyPhoto(String photo) { this.photo = photo; }
 }
