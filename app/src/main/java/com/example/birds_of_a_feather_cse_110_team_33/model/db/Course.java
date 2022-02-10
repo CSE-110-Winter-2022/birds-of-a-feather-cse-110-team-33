@@ -5,12 +5,11 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 // db for courses
-@Entity(tableName = "course")
+@Entity(tableName = "courses")
 public class Course {
     // add a course
     // should store the info (year, quarter, subject, course #)
-    public Course(int courseId, int personId, int year, String quarter, String subject, String course_num) {
-        this.courseId = courseId;
+    public Course(int personId, int year, String quarter, String subject, String course_num) {
         this.personId = personId;
         this.year = year;
         this.quarter = quarter;
@@ -18,9 +17,9 @@ public class Course {
         this.course_num = course_num;
     }
 
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    public int courseId;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "course_id")
+    private int courseId = 0;
 
     @ColumnInfo(name = "person_id")
     public int personId;
@@ -36,4 +35,12 @@ public class Course {
 
     @ColumnInfo(name = "course_num")
     public String course_num;
+
+    public int getCourseId() { return courseId; }
+    public void setCourseId(int courseId) { this.courseId = courseId; }
+    public int getPersonId() { return personId; }
+    public void setPersonId(int personId) { this.personId = personId; }
+    public String toString() {
+        return quarter + " " + year + " " + subject + " " + course_num;
+    }
 }

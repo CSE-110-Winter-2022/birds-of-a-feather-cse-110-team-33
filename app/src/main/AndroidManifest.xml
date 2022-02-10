@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Birdsofafeathercse110team33">
         <activity
+            android:name=".PersonDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomePageActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
