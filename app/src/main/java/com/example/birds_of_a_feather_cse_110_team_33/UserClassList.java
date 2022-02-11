@@ -21,6 +21,11 @@ public class UserClassList extends AppCompatActivity {
 
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     public int howManyCreatedThusFar;
+    public int userId;
+    public String courseSubject;
+    public String courseNumber;
+    public int quarterSpinnerChoice;
+    public int yearSpinnerChoice;
 
 
 
@@ -28,15 +33,22 @@ public class UserClassList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_class_list);
+
         parentLinearLayout = (LinearLayout) findViewById(R.id.parent_linear_layout);
 
         SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
 
         howManyCreatedThusFar = getIntent().getIntExtra("addNum",0);
+        userId = getIntent().getIntExtra("Ethan id",0);
 
         if (getIntent().getIntExtra("addNum",0) == 0) {
             howManyCreatedThusFar = preferences.getInt("addNum",0);
         }
+
+        courseSubject = getIntent().getStringExtra("courseSubject");
+        courseNumber = getIntent().getStringExtra("courseNumber");
+        quarterSpinnerChoice = getIntent().getIntExtra("quarterSpinnerChoice",0);
+        yearSpinnerChoice = getIntent().getIntExtra("yearSpinnerChoice",0);
 
 
 
@@ -100,6 +112,11 @@ public class UserClassList extends AppCompatActivity {
         //Send how many were created so we know where to start from.
 
         intent.putExtra("addNumB",howManyCreatedThusFar);
+        intent.putExtra("Ethan id",userId);
+        intent.putExtra("courseSubject",courseSubject);
+        intent.putExtra("courseNumber",courseNumber);
+        intent.putExtra("quarterSpinnerChoice",quarterSpinnerChoice);
+        intent.putExtra("yearSpinnerChoice",yearSpinnerChoice);
         startActivity(intent);
     }
 

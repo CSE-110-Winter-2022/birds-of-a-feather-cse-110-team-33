@@ -11,6 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
+
 public class AddAClassPage extends AppCompatActivity {
 
     private LinearLayout parentLinearLayout;
@@ -18,12 +23,20 @@ public class AddAClassPage extends AppCompatActivity {
 
 
     public final String[] years = new String[]{"2016","2017","2018","2019","2020","2021","2022"};
-    public final String[] quarters = new String[]{"Winter","Spring","Summer 1","Summer 2","SSS","Fall"};
+    public final String[] quarters = new String[]{"Winter","Spring","Summer_1","Summer_2","SSS","Fall"};
 
-    public static final String EXTRA_DATA = "EXTRA_DATA";
+
 
     public int saveClicks = 0;
     public int numFromListDisplay;
+    public int userIdd;
+    protected AppDatabase db;
+    protected PersonDao personDao;
+    protected CoursesDao coursesDao;
+    public String courseSubject;
+    public String courseNumber;
+    public int quarterSpinnerChoice;
+    public int yearSpinnerChoice;
 
 
 
@@ -32,40 +45,56 @@ public class AddAClassPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_aclass_page);
 
+        //Check with ethan to see if this works or not.
+
+        db = AppDatabase.singleton(this);
+        personDao = db.personDao();
+        coursesDao = db.coursesDao();
+
         parentLinearLayout = (LinearLayout) findViewById(R.id.parent_linear_layout);
+        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
 
         //Grab how many we have created thus far, so we know where to start from.
         numFromListDisplay = getIntent().getIntExtra("addNumB",0);
+        userIdd = preferences.getInt("userId",0);
 
         saveClicks = numFromListDisplay;
-        setTextWithPreviousEntry();
+
+        courseSubject = getIntent().getStringExtra("courseSubject");
+        courseNumber = getIntent().getStringExtra("courseNumber");
+        quarterSpinnerChoice = getIntent().getIntExtra("quarterSpinnerChoice",0);
+        yearSpinnerChoice = getIntent().getIntExtra("yearSpinnerChoice",0);
+
+        if (numFromListDisplay > 0) {
+            setTextWithPreviousEntry();
+        }
+
 
     }
 
     public void setTextWithPreviousEntry() {
-        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-
 
         TextView courseName = (TextView) findViewById(R.id.course_subject_edit_text);
         TextView courseNum = (TextView) findViewById(R.id.course_number_edit_text);
         Spinner season = (Spinner) findViewById(R.id.quarters_spinner);
         Spinner year = (Spinner) findViewById(R.id.years_spinner);
 
-        int seasonChoice = season.getSelectedItemPosition();
-        int yearChoice = year.getSelectedItemPosition();
+        courseName.setText(courseSubject);
+        courseNum.setText(courseNumber);
+        season.setSelection(quarterSpinnerChoice);
+        year.setSelection(yearSpinnerChoice);
 
-        courseName.setText(courseName.getText().toString());
-        courseNum.setText(courseNum.getText().toString());
-        season.setSelection(seasonChoice);
-        year.setSelection(yearChoice);
+
     }
 
 
     public void onSaveClassClicked(View view) {
 
 
+
         //Add new class to the User/Person #0 object, and add the class to the course database
+
+
 
 
         SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
@@ -88,6 +117,10 @@ public class AddAClassPage extends AppCompatActivity {
 
         editor.apply();
 
+        Course newCourse = new Course(userIdd,Integer.parseInt(years[yearChoice]),quarters[seasonChoice],courseName.getText().toString(),courseNum.getText().toString());
+
+        //This line causes the error, quote on quote null pointer
+        coursesDao.insert(newCourse);
 
         // Also keep the info thats filled in for when the user comes back.
         courseName.setText(courseName.getText().toString());
@@ -97,6 +130,11 @@ public class AddAClassPage extends AppCompatActivity {
 
         saveClicks++;
 
+        courseSubject = courseName.getText().toString();
+        courseNumber = courseNum.getText().toString();
+        quarterSpinnerChoice = seasonChoice;
+        yearSpinnerChoice = yearChoice;
+
     }
 
 
@@ -105,6 +143,10 @@ public class AddAClassPage extends AppCompatActivity {
 
         Intent intent = new Intent(this, UserClassList.class);
         intent.putExtra("addNum",saveClicks);
+        intent.putExtra("courseSubject",courseSubject);
+        intent.putExtra("courseNumber",courseNumber);
+        intent.putExtra("quarterSpinnerChoice",quarterSpinnerChoice);
+        intent.putExtra("yearSpinnerChoice",yearSpinnerChoice);
         setResult(RESULT_OK, intent);
 
         SharedPreferences preferences = getSharedPreferences("prof one",MODE_PRIVATE);
