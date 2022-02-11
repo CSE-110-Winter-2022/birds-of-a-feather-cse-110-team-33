@@ -8,7 +8,7 @@ import androidx.room.Transaction;
 
 import java.util.List;
 
-// data accessing object for personWithCourses
+// data accessing object for person
 @Dao
 public interface PersonDao {
     @Query("SELECT * FROM persons")
@@ -19,6 +19,9 @@ public interface PersonDao {
 
     @Query("SELECT COUNT(*) FROM persons")
     int count();
+
+    @Query("SELECT MAX(person_id) FROM persons")
+    int maxId();
 
     @Insert
     void insert(Person person);

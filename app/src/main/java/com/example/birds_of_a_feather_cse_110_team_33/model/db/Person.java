@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey;
 // db for person
 @Entity(tableName = "persons")
 public class Person {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "person_id")
-    public int personId = 0;
+    public int personId;
 
     @ColumnInfo(name = "name")
     public String name;
@@ -21,6 +21,7 @@ public class Person {
         this.name = name;
         this.photo = photo;
     }
+
     public int getPersonId() { return personId; }
     public void setPersonId(int personId) { this.personId = personId; }
     public String getName() { return name; }

@@ -43,6 +43,7 @@ public class dbTesting {
     @Test
     public void testPersonsAddition() throws Exception {
         Person ethan = new Person("Ethan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        ethan.setPersonId(personDao.maxId() + 1);
         personDao.insert(ethan);
         Course ethan110 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "110");
         Course ethan112 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "112");
@@ -53,6 +54,7 @@ public class dbTesting {
 
         // share all
         Person james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        james.setPersonId(personDao.maxId() + 1);
         personDao.insert(james);
         Course james110 = new Course(james.getPersonId(), 2021, "Winter", "CSE", "110");
         Course james112 = new Course(james.getPersonId(), 2021, "Winter", "CSE", "112");
@@ -63,6 +65,7 @@ public class dbTesting {
 
         // share none
         Person nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        nick.setPersonId(personDao.maxId() + 1);
         personDao.insert(nick);
         Course nick110 = new Course(nick.getPersonId(), 2022, "Winter", "CSE", "110");
         Course nick112 = new Course(nick.getPersonId(), 2022, "Winter", "CSE", "112");
@@ -73,6 +76,7 @@ public class dbTesting {
 
         // share one
         Person ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        ryan.setPersonId(personDao.maxId() + 1);
         personDao.insert(ryan);
         Course ryan110 = new Course(ryan.getPersonId(), 2021, "Winter", "CSE", "110");
         Course ryan112 = new Course(ryan.getPersonId(), 2022, "Winter", "CSE", "112");
@@ -83,5 +87,7 @@ public class dbTesting {
 
         assertEquals(personDao.count(), 4);
         assertEquals(coursesDao.count(), 12);
+        assertEquals(ethan.getPersonId(), 1);
+        assertEquals(james.getPersonId(), 2);
     }
 }
