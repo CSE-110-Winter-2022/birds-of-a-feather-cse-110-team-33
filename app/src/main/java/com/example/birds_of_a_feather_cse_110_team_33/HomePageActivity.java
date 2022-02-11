@@ -39,4 +39,3 @@ public class HomePageActivity extends AppCompatActivity {
         // implementation for User Story: ON/OFF Search
     }
 }
-

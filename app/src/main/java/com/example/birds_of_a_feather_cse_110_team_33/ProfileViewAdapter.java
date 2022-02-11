@@ -54,6 +54,4 @@ public class ProfileViewAdapter extends RecyclerView.Adapter<ProfileViewAdapter.
             this.text.setText(course.toString());
         }
     }
-
-
 }
