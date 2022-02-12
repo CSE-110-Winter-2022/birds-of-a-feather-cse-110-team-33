@@ -11,7 +11,11 @@ import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomePageActivity extends AppCompatActivity {
     private RecyclerView personsRecyclerView;
@@ -28,14 +32,21 @@ public class HomePageActivity extends AppCompatActivity {
         db = AppDatabase.singleton(this);
         List<Person> persons = db.personDao().getAll();
 
+
         personsRecyclerView = findViewById(R.id.persons_view);
         personsLayoutManager = new LinearLayoutManager(this);
         personsRecyclerView.setLayoutManager(personsLayoutManager);
 
-        personsViewAdapter = new PersonsViewAdapter(persons, match(1));
+        //remove user from persons list
+        Person user = persons.remove(0);
+
+        //fill Person.num_shared and short
+        setPersonNumShared(persons, user);
+        sortPersonsByNumShared(persons);
+
+        personsViewAdapter = new PersonsViewAdapter(persons);
         personsRecyclerView.setAdapter(personsViewAdapter);
 
-        // match()
     }
 
 
@@ -43,9 +54,20 @@ public class HomePageActivity extends AppCompatActivity {
         // implementation for User Story: ON/OFF Search
     }
 
-    public List<Course> match(int id) {
-        // get all shared courses for user #1
-        List<Course> courses = db.personDao().getSharedCourses(id);
-        return courses;
+    public void setPersonNumShared(List<Person> persons, Person user){
+        for(Person person: persons){
+            person.setNumShared(db.personDao().
+                                getSharedCourses(person.getPersonId(),user.getPersonId()).size());
+        }
     }
+
+    public void sortPersonsByNumShared(List<Person> persons){
+        Collections.sort(persons, new Comparator<Person>() {
+            @Override
+            public int compare(Person p1, Person p2) {
+                return p2.getNumShared() - p1.getNumShared();
+            }
+        });
+    }
+
 }

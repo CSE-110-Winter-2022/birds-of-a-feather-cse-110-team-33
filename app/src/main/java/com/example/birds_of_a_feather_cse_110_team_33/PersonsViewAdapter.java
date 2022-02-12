@@ -25,12 +25,10 @@ import java.util.List;
 
 public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.ViewHolder> {
     private final List<Person> persons;
-    private final List<Course> courses;
 
-    public PersonsViewAdapter(List<Person> persons, List<Course> courses) {
+    public PersonsViewAdapter(List<Person> persons) {
         super();
         this.persons = persons;
-        this.courses = courses;
     }
 
     // NOT WORKING, NOT USED
@@ -65,7 +63,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PersonsViewAdapter.ViewHolder holder, int position) {
-        holder.setPerson(persons.get(position), courses);
+        holder.setPerson(persons.get(position));
     }
 
     @Override
@@ -85,22 +83,16 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             itemView.setOnClickListener(this);
         }
 
-        public void setPerson(Person person, List<Course> courses) {
+        public void setPerson(Person person) {
             this.person = person;
             this.personNameView.setText(person.getName());
 
             // NOT DONE!!!!
             // this.personImageView.setImageBitmap(getBitmapFromURL(person.getPhoto()));
 
-            int count = 0;
-            for (Course course: courses) {
-                if (course.getPersonId() == person.getPersonId()) {
-                    count++;
-                }
-            }
             // NOT DONE!!!! NEED TO IMPLEMENT getSharedCourses method
             // is hard coded rn to test viewing
-            this.sharedCoursesView.setText("Shared Courses: " + count);
+            this.sharedCoursesView.setText("Shared Courses: " + person.getNumShared());
         }
 
         @Override

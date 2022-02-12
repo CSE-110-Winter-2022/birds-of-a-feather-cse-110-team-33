@@ -21,8 +21,8 @@ public class Person {
     @ColumnInfo(name = "photo")
     public String photo;
 
-    // @ColumnInfo(name = "num_shared")
-    // public int num_shared;
+    @ColumnInfo(name = "num_shared")
+    public int num_shared;
 
     public Person(String name, String photo) {
         this.name = name;
@@ -35,6 +35,6 @@ public class Person {
     public void setName(String name) { this.name = name; }
     public String getPhoto() { return photo; }
     public void setPhoto(String photo) { this.photo = photo; }
-    // public int getNumShared() { return num_shared; }
-    // public void setNumShared(int num_shared) { this.num_shared = num_shared; }
+    public int getNumShared() { return num_shared; }
+    public void setNumShared(int num_shared) { this.num_shared = num_shared; }
 }
