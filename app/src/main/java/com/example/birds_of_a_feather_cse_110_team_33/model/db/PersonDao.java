@@ -23,6 +23,14 @@ public interface PersonDao {
     @Query("SELECT MAX(person_id) FROM persons")
     int maxId();
 
+    @Query("SELECT b.* FROM courses a, courses b " +
+            "WHERE a.person_id=:id AND b.person_id!=:id " + // not current user
+            "AND a.quarter=b.quarter " +
+            "AND a.subject=b.subject " +
+            "AND a.year=b.year " +
+            "AND a.course_num=b.course_num")
+    List<Course> getSharedCourses(int id);
+
     @Insert
     void insert(Person person);
 

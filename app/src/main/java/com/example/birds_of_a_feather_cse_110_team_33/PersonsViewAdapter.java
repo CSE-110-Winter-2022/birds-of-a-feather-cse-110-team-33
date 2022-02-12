@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 
 import java.io.IOException;
@@ -24,10 +25,12 @@ import java.util.List;
 
 public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.ViewHolder> {
     private final List<Person> persons;
+    private final List<Course> courses;
 
-    public PersonsViewAdapter(List<Person> persons) {
+    public PersonsViewAdapter(List<Person> persons, List<Course> courses) {
         super();
         this.persons = persons;
+        this.courses = courses;
     }
 
     // NOT WORKING, NOT USED
@@ -62,7 +65,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PersonsViewAdapter.ViewHolder holder, int position) {
-        holder.setPerson(persons.get(position));
+        holder.setPerson(persons.get(position), courses);
     }
 
     @Override
@@ -82,16 +85,22 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             itemView.setOnClickListener(this);
         }
 
-        public void setPerson(Person person) {
+        public void setPerson(Person person, List<Course> courses) {
             this.person = person;
             this.personNameView.setText(person.getName());
 
             // NOT DONE!!!!
             // this.personImageView.setImageBitmap(getBitmapFromURL(person.getPhoto()));
 
+            int count = 0;
+            for (Course course: courses) {
+                if (course.getPersonId() == person.getPersonId()) {
+                    count++;
+                }
+            }
             // NOT DONE!!!! NEED TO IMPLEMENT getSharedCourses method
             // is hard coded rn to test viewing
-            this.sharedCoursesView.setText("Shared Courses: 1");
+            this.sharedCoursesView.setText("Shared Courses: " + count);
         }
 
         @Override
