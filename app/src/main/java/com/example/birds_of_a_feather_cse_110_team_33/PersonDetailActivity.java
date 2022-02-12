@@ -19,6 +19,7 @@ import java.util.List;
 public class PersonDetailActivity extends AppCompatActivity {
     private AppDatabase db;
     private Person person;
+    private int userId;
 
     private RecyclerView profileRecyclerView;
     private RecyclerView.LayoutManager profileLayoutManager;
@@ -36,7 +37,14 @@ public class PersonDetailActivity extends AppCompatActivity {
 
         db = AppDatabase.singleton(this);
         person = db.personDao().get(personId);
-        List<Course> courses = db.coursesDao().getForPerson(personId);
+
+        userId = db.personDao().getAll().get(0).getPersonId(); //(jeremiah) a little bit messy
+
+        List<Course> sharedCourses = db.personDao().getSharedCourses(personId,userId);
+
+
+
+
         setTitle(person.getName() + " Profile");
 
         // set profile name
@@ -52,7 +60,7 @@ public class PersonDetailActivity extends AppCompatActivity {
         profileLayoutManager = new LinearLayoutManager(this);
         profileRecyclerView.setLayoutManager(profileLayoutManager);
 
-        profileViewAdapter = new ProfileViewAdapter(courses);
+        profileViewAdapter = new ProfileViewAdapter(sharedCourses);
         profileRecyclerView.setAdapter(profileViewAdapter);
     }
 
