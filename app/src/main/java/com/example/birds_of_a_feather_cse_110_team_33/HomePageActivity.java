@@ -22,6 +22,7 @@ public class HomePageActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager personsLayoutManager;
     private PersonsViewAdapter personsViewAdapter;
     private AppDatabase db;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +31,21 @@ public class HomePageActivity extends AppCompatActivity {
 
         db = AppDatabase.singleton(this);
         List<Person> persons = db.personDao().getAll();
-
+        userId = getIntent().getIntExtra("Ethan id",0);
 
         personsRecyclerView = findViewById(R.id.persons_view);
         personsLayoutManager = new LinearLayoutManager(this);
         personsRecyclerView.setLayoutManager(personsLayoutManager);
 
         //remove user from persons list
-        Person user = persons.remove(0);
-        setTitle(user.getName() + "'s Birds of a Feather");
+        for (Person person: persons) {
+            if (person.getPersonId() == userId) {
+                persons.remove(person);
+                break;
+            }
+        }
+        Person user = db.personDao().get(userId);
+        setTitle(user + "'s Birds of a Feather");
 
         //fill Person.num_shared and short
         setPersonNumShared(persons, user);
@@ -46,17 +53,12 @@ public class HomePageActivity extends AppCompatActivity {
 
         personsViewAdapter = new PersonsViewAdapter(persons);
         personsRecyclerView.setAdapter(personsViewAdapter);
-
     }
 
-    public void onGoBackClicked(View view) {
-        finish();
-    }
 
-/*
     public void onStartStopClicked(View view) {
         // implementation for User Story: ON/OFF Search
-    }*/
+    }
 
     public void setPersonNumShared(List<Person> persons, Person user){
         for(Person person: persons){

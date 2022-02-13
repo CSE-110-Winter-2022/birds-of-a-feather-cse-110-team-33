@@ -88,17 +88,10 @@ public class MainActivity extends AppCompatActivity {
         coursesDao.insert(ryan132A);
     }
 
-    public void onStartClicked(View view) {
-        Context context = view.getContext();
-        Intent intent = new Intent(context, HomePageActivity.class);
-        context.startActivity(intent);
-    }
-
     public void onClassBtnClicked(View view) {
         Context context = view.getContext();
-        Intent intent  = new Intent(context,UserClassListActivity.class);
-        intent.putExtra("Ethan id",ethan.getPersonId());
-
+        Intent intent  = new Intent(context, UserClassListActivity.class);
+        intent.putExtra("Ethan id", ethan.getPersonId());
         context.startActivity(intent);
     }
 }

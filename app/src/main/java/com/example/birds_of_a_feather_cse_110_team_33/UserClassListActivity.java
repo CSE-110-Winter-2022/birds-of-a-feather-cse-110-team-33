@@ -46,9 +46,6 @@ public class UserClassListActivity extends AppCompatActivity {
         quarterSpinnerChoice = getIntent().getIntExtra("quarterSpinnerChoice",0);
         yearSpinnerChoice = getIntent().getIntExtra("yearSpinnerChoice",0);
 
-
-
-
         loadNewClasses();
 
     }
@@ -56,9 +53,6 @@ public class UserClassListActivity extends AppCompatActivity {
     public void loadNewClasses() {
 
         SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
-
-
-
         for (int i = 1; i < howManyCreatedThusFar; i++) {
 
             addRow();
@@ -83,7 +77,7 @@ public class UserClassListActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.classrow, null);
         // Add the new row before the add field button.
-        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount()-2);
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount()-3);
 
     }
 
@@ -117,8 +111,14 @@ public class UserClassListActivity extends AppCompatActivity {
     }
 
     public void onGoBackClickedLD(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        finish();
+    }
+
+    public void onFinishedClicked(View view) {
+        Context context = view.getContext();
+        Intent intent  = new Intent(context, HomePageActivity.class);
+        intent.putExtra("Ethan id", userId);
+        context.startActivity(intent);
     }
 
 

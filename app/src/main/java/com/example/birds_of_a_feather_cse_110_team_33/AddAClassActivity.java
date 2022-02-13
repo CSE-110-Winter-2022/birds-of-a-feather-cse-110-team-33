@@ -52,7 +52,7 @@ public class AddAClassActivity extends AppCompatActivity {
         personDao = db.personDao();
         coursesDao = db.coursesDao();
 
-        parentLinearLayout = (LinearLayout) findViewById(R.id.parent_linear_layout);
+        parentLinearLayout = findViewById(R.id.parent_linear_layout);
         SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
 
         //Grab how many we have created thus far, so we know where to start from.
@@ -69,8 +69,6 @@ public class AddAClassActivity extends AppCompatActivity {
         if (numFromListDisplay > 0) {
             setTextWithPreviousEntry();
         }
-
-
     }
 
     public void setTextWithPreviousEntry() {
@@ -90,17 +88,12 @@ public class AddAClassActivity extends AppCompatActivity {
 
 
     public void onSaveClassClicked(View view) {
-
-
-
         if (saveClicks == 11) {
             Toast.makeText(AddAClassActivity.this,"Page Limit Reached!", Toast.LENGTH_SHORT).show();
 
             return;
         }
         //Add new class to the User/Person #0 object, and add the class to the course database
-
-
 
 
         SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
@@ -125,8 +118,6 @@ public class AddAClassActivity extends AppCompatActivity {
         editor.apply();
 
         Course newCourse = new Course(userIdd,Integer.parseInt(years[yearChoice]),quarters[seasonChoice],courseName.getText().toString(),courseNum.getText().toString());
-
-        //This line causes the error, quote on quote null pointer
         coursesDao.insert(newCourse);
 
         // Also keep the info thats filled in for when the user comes back.
