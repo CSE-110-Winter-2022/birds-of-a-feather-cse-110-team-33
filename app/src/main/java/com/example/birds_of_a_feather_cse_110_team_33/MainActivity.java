@@ -31,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("BoF Start");
 
-        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        //editor.clear();
-        //editor.apply();
 
         AppDatabase.useTestSingleton(this);
         db = AppDatabase.singleton(this);
@@ -46,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         ethan = new Person("Ethan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         personDao.insert(ethan);
 
-        editor.putInt("userId",ethan.getPersonId());
+        //editor.putInt("userId",ethan.getPersonId());
        // Course ethan110 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "110");
        // Course ethan112 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "112");
        // Course ethan132A = new Course(ethan.getPersonId(), 2021, "Spring", "CSE", "132A");
