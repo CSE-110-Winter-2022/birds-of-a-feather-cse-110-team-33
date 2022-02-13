@@ -31,7 +31,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         db = AppDatabase.singleton(this);
         List<Person> persons = db.personDao().getAll();
-        userId = getIntent().getIntExtra("Ethan id",0);
+        userId = getIntent().getIntExtra("user",0);
 
         personsRecyclerView = findViewById(R.id.persons_view);
         personsLayoutManager = new LinearLayoutManager(this);
@@ -45,13 +45,13 @@ public class HomePageActivity extends AppCompatActivity {
             }
         }
         Person user = db.personDao().get(userId);
-        setTitle(user + "'s Birds of a Feather");
+        setTitle(user.getName() + "'s Birds of a Feather");
 
         //fill Person.num_shared and short
         setPersonNumShared(persons, user);
         sortPersonsByNumShared(persons);
 
-        personsViewAdapter = new PersonsViewAdapter(persons);
+        personsViewAdapter = new PersonsViewAdapter(persons, userId);
         personsRecyclerView.setAdapter(personsViewAdapter);
     }
 
@@ -63,7 +63,7 @@ public class HomePageActivity extends AppCompatActivity {
     public void setPersonNumShared(List<Person> persons, Person user){
         for(Person person: persons){
             person.setNumShared(db.personDao().
-                                getSharedCourses(person.getPersonId(),user.getPersonId()).size());
+                                getSharedCourses(person.getPersonId(), user.getPersonId()).size());
         }
     }
 

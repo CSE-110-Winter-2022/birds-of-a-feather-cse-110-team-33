@@ -34,13 +34,12 @@ public class PersonDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int personId = intent.getIntExtra("person_id", 0);
+        int userId = intent.getIntExtra("user", 0);
 
         db = AppDatabase.singleton(this);
         person = db.personDao().get(personId);
 
-        userId = db.personDao().getAll().get(0).getPersonId(); //(jeremiah) a little bit messy
-
-        List<Course> sharedCourses = db.personDao().getSharedCourses(personId,userId);
+        List<Course> sharedCourses = db.personDao().getSharedCourses(personId, userId);
 
         setTitle(person.getName() + "'s Profile");
 

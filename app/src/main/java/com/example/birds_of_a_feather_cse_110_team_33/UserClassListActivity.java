@@ -32,14 +32,9 @@ public class UserClassListActivity extends AppCompatActivity {
 
         parentLinearLayout = (LinearLayout) findViewById(R.id.parent_linear_layout);
 
-        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
-
         howManyCreatedThusFar = getIntent().getIntExtra("addNum",0);
-        userId = getIntent().getIntExtra("Ethan id",0);
-
-        if (getIntent().getIntExtra("addNum",0) == 0) {
-            howManyCreatedThusFar = preferences.getInt("addNum",0);
-        }
+        userId = getIntent().getIntExtra("user",0);
+        setTitle("Your Current Added Classes");
 
         courseSubject = getIntent().getStringExtra("courseSubject");
         courseNumber = getIntent().getStringExtra("courseNumber");
@@ -102,7 +97,7 @@ public class UserClassListActivity extends AppCompatActivity {
         //Send how many were created so we know where to start from.
 
         intent.putExtra("addNumB",howManyCreatedThusFar);
-        intent.putExtra("Ethan id",userId);
+        intent.putExtra("user",userId);
         intent.putExtra("courseSubject",courseSubject);
         intent.putExtra("courseNumber",courseNumber);
         intent.putExtra("quarterSpinnerChoice",quarterSpinnerChoice);
@@ -117,7 +112,7 @@ public class UserClassListActivity extends AppCompatActivity {
     public void onFinishedClicked(View view) {
         Context context = view.getContext();
         Intent intent  = new Intent(context, HomePageActivity.class);
-        intent.putExtra("Ethan id", userId);
+        intent.putExtra("user", userId);
         context.startActivity(intent);
     }
 

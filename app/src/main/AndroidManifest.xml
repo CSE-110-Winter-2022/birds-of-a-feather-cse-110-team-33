@@ -10,13 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Birdsofafeathercse110team33">
         <activity
+            android:name=".ConfirmNameActivity"
+            android:exported="false" />
+        <activity
             android:name=".PersonDetailActivity"
             android:exported="false" />
         <activity
             android:name=".HomePageActivity"
             android:exported="false" />
         <activity
-
             android:name=".AddAClassActivity"
             android:exported="false" />
         <activity
