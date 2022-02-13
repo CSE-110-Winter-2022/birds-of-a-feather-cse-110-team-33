@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
@@ -92,6 +93,11 @@ public class AddAClassPage extends AppCompatActivity {
 
 
 
+        if (saveClicks == 11) {
+            Toast.makeText(AddAClassPage.this,"Page Limit Reached!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
         //Add new class to the User/Person #0 object, and add the class to the course database
 
 
@@ -108,6 +114,7 @@ public class AddAClassPage extends AppCompatActivity {
 
         int seasonChoice = season.getSelectedItemPosition();
         int yearChoice = year.getSelectedItemPosition();
+
 
 
         //Somehow add the row of new info into the ListDisplay.class file
@@ -134,6 +141,9 @@ public class AddAClassPage extends AppCompatActivity {
         courseNumber = courseNum.getText().toString();
         quarterSpinnerChoice = seasonChoice;
         yearSpinnerChoice = yearChoice;
+
+
+        Toast.makeText(AddAClassPage.this,"Class Saved!", Toast.LENGTH_SHORT).show();
 
     }
 

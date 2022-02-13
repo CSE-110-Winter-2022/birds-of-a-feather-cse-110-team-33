@@ -15,13 +15,14 @@
         android:layout_height="50dp"
         android:orientation="horizontal" >
 
+
         <TextView
             android:id="@+id/course_edit_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
+            android:text="Example"
             android:textSize="25dp"
-            android:text="CSE 110 Winter 2022"
             android:inputType="text" />
 
 
@@ -32,6 +33,8 @@
             android:layout_weight="1"
             android:background="@android:drawable/ic_delete"
             android:onClick="onDelete" />
+
+
     </LinearLayout>
 
     <Button
