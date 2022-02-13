@@ -23,13 +23,14 @@ public class MainActivity extends AppCompatActivity {
     protected AppDatabase db;
     protected PersonDao personDao;
     protected CoursesDao coursesDao;
-    protected Person ethan;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("BoF Start");
+
 
         AppDatabase.useTestSingleton(this);
         db = AppDatabase.singleton(this);
