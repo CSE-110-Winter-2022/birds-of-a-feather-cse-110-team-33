@@ -1,7 +1,6 @@
 package com.example.birds_of_a_feather_cse_110_team_33;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 
 
@@ -19,19 +18,11 @@ import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
 
-import com.example.birds_of_a_feather_cse_110_team_33.UserClassList;
-
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-
 
 public class MainActivity extends AppCompatActivity {
     protected AppDatabase db;
     protected PersonDao personDao;
     protected CoursesDao coursesDao;
-
     protected Person ethan;
 
     @Override
@@ -65,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         // share all
         Person james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        james.setPersonId(personDao.maxId() + 1);
         personDao.insert(james);
         Course james110 = new Course(james.getPersonId(), 2021, "Winter", "CSE", "110");
         Course james112 = new Course(james.getPersonId(), 2021, "Winter", "CSE", "112");
@@ -75,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         // share none
         Person nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        nick.setPersonId(personDao.maxId() + 1);
         personDao.insert(nick);
         Course nick110 = new Course(nick.getPersonId(), 2022, "Winter", "CSE", "110");
         Course nick112 = new Course(nick.getPersonId(), 2022, "Winter", "CSE", "112");
@@ -85,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         // share one
         Person ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        ryan.setPersonId(personDao.maxId() + 1);
         personDao.insert(ryan);
         Course ryan110 = new Course(ryan.getPersonId(), 2021, "Winter", "CSE", "110");
         Course ryan112 = new Course(ryan.getPersonId(), 2022, "Winter", "CSE", "112");
@@ -100,16 +94,11 @@ public class MainActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-
-
     public void onClassBtnClicked(View view) {
         Context context = view.getContext();
-        Intent intent  = new Intent(context,UserClassList.class);
+        Intent intent  = new Intent(context,UserClassListActivity.class);
         intent.putExtra("Ethan id",ethan.getPersonId());
 
         context.startActivity(intent);
     }
-
-
-
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 
 import java.io.IOException;
@@ -89,9 +90,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             // NOT DONE!!!!
             // this.personImageView.setImageBitmap(getBitmapFromURL(person.getPhoto()));
 
-            // NOT DONE!!!! NEED TO IMPLEMENT getSharedCourses method
-            // is hard coded rn to test viewing
-            this.sharedCoursesView.setText("Shared Courses: 1");
+            this.sharedCoursesView.setText("Shared Courses: " + person.getNumShared());
         }
 
         @Override

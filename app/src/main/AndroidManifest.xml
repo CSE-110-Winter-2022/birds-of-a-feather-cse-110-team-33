@@ -17,10 +17,10 @@
             android:exported="false" />
         <activity
 
-            android:name=".AddAClassPage"
+            android:name=".AddAClassActivity"
             android:exported="false" />
         <activity
-            android:name=".UserClassList"
+            android:name=".UserClassListActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

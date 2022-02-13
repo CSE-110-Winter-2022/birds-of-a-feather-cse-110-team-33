@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface CoursesDao {
     @Transaction
-    @Query("SELECT * FROM courses where person_id=:personId")
+    @Query("SELECT * FROM courses WHERE person_id=:personId")
     List<Course> getForPerson(int personId);
 
     // change person_id to course_id?
@@ -27,4 +27,6 @@ public interface CoursesDao {
     @Query("SELECT count(*) FROM courses")
     int count();
 
+    @Query("SELECT count(*) FROM courses WHERE person_id=:personId")
+    int countPerson(int personId);
 }

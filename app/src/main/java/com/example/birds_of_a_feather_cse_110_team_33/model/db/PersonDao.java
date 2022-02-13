@@ -8,7 +8,7 @@ import androidx.room.Transaction;
 
 import java.util.List;
 
-// data accessing object for personWithCourses
+// data accessing object for person
 @Dao
 public interface PersonDao {
     @Query("SELECT * FROM persons")
@@ -19,6 +19,17 @@ public interface PersonDao {
 
     @Query("SELECT COUNT(*) FROM persons")
     int count();
+
+    @Query("SELECT MAX(person_id) FROM persons")
+    int maxId();
+
+    @Query("SELECT b.* FROM courses a, courses b " +
+            "WHERE a.person_id=:id AND b.person_id=:userId " + //compares user and other
+            "AND a.quarter=b.quarter " +
+            "AND a.subject=b.subject " +
+            "AND a.year=b.year " +
+            "AND a.course_num=b.course_num")
+    List<Course> getSharedCourses(int id, int userId);
 
     @Insert
     void insert(Person person);

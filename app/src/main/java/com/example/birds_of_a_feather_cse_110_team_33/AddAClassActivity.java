@@ -17,7 +17,7 @@ import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
 
-public class AddAClassPage extends AppCompatActivity {
+public class AddAClassActivity extends AppCompatActivity {
 
     private LinearLayout parentLinearLayout;
 
@@ -94,7 +94,7 @@ public class AddAClassPage extends AppCompatActivity {
 
 
         if (saveClicks == 11) {
-            Toast.makeText(AddAClassPage.this,"Page Limit Reached!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddAClassActivity.this,"Page Limit Reached!", Toast.LENGTH_SHORT).show();
 
             return;
         }
@@ -143,7 +143,7 @@ public class AddAClassPage extends AppCompatActivity {
         yearSpinnerChoice = yearChoice;
 
 
-        Toast.makeText(AddAClassPage.this,"Class Saved!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AddAClassActivity.this,"Class Saved!", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -151,7 +151,7 @@ public class AddAClassPage extends AppCompatActivity {
 
     public void onGoBackAACPClicked(View view) {
 
-        Intent intent = new Intent(this, UserClassList.class);
+        Intent intent = new Intent(this, UserClassListActivity.class);
         intent.putExtra("addNum",saveClicks);
         intent.putExtra("courseSubject",courseSubject);
         intent.putExtra("courseNumber",courseNumber);
