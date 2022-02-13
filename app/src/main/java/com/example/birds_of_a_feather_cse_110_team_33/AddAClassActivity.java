@@ -53,11 +53,12 @@ public class AddAClassActivity extends AppCompatActivity {
         coursesDao = db.coursesDao();
 
         parentLinearLayout = findViewById(R.id.parent_linear_layout);
-        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
 
         //Grab how many we have created thus far, so we know where to start from.
         numFromListDisplay = getIntent().getIntExtra("addNumB",0);
-        userIdd = getIntent().getIntExtra("Ethan id",0);
+
+        userIdd = getIntent().getIntExtra("user",0);
+
 
         saveClicks = numFromListDisplay;
 
@@ -202,6 +203,7 @@ public class AddAClassActivity extends AppCompatActivity {
         intent.putExtra("courseNumber",courseNumber);
         intent.putExtra("quarterSpinnerChoice",quarterSpinnerChoice);
         intent.putExtra("yearSpinnerChoice",yearSpinnerChoice);
+        intent.putExtra("user", userIdd);
         setResult(RESULT_OK, intent);
 
         SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
