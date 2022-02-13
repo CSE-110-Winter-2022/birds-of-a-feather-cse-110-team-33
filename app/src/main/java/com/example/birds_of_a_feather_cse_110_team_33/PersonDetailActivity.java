@@ -42,9 +42,6 @@ public class PersonDetailActivity extends AppCompatActivity {
 
         List<Course> sharedCourses = db.personDao().getSharedCourses(personId,userId);
 
-
-
-
         setTitle(person.getName() + "'s Profile");
 
         // set profile name

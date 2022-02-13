@@ -90,8 +90,6 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             // NOT DONE!!!!
             // this.personImageView.setImageBitmap(getBitmapFromURL(person.getPhoto()));
 
-            // NOT DONE!!!! NEED TO IMPLEMENT getSharedCourses method
-            // is hard coded rn to test viewing
             this.sharedCoursesView.setText("Shared Courses: " + person.getNumShared());
         }
 
