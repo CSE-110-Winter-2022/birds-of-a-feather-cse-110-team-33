@@ -41,6 +41,6 @@ public class Course {
     public int getPersonId() { return personId; }
     public void setPersonId(int personId) { this.personId = personId; }
     public String toString() {
-        return quarter + " " + year + " " + subject + " " + course_num;
+        return subject + " " + course_num + " " + quarter + " " + year;
     }
 }

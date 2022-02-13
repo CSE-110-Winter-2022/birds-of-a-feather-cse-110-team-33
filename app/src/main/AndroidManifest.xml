@@ -16,6 +16,13 @@
             android:name=".HomePageActivity"
             android:exported="false" />
         <activity
+
+            android:name=".AddAClassPage"
+            android:exported="false" />
+        <activity
+            android:name=".UserClassList"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

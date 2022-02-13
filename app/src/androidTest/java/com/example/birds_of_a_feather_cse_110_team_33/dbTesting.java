@@ -26,6 +26,7 @@ public class dbTesting {
     private CoursesDao coursesDao;
     private AppDatabase db;
 
+
     @Before
     public void createDb() {
         Context context = ApplicationProvider.getApplicationContext();
