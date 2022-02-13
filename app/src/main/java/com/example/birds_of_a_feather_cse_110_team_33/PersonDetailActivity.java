@@ -45,7 +45,7 @@ public class PersonDetailActivity extends AppCompatActivity {
 
 
 
-        setTitle(person.getName() + " Profile");
+        setTitle(person.getName() + "'s Profile");
 
         // set profile name
         name = findViewById(R.id.profile_name);

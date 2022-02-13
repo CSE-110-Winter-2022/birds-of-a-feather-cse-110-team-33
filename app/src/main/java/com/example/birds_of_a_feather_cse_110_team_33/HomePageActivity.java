@@ -27,7 +27,6 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        setTitle("Birds of a Feather");
 
         db = AppDatabase.singleton(this);
         List<Person> persons = db.personDao().getAll();
@@ -39,6 +38,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         //remove user from persons list
         Person user = persons.remove(0);
+        setTitle(user.getName() + "'s Birds of a Feather");
 
         //fill Person.num_shared and short
         setPersonNumShared(persons, user);
@@ -49,10 +49,14 @@ public class HomePageActivity extends AppCompatActivity {
 
     }
 
+    public void onGoBackClicked(View view) {
+        finish();
+    }
 
+/*
     public void onStartStopClicked(View view) {
         // implementation for User Story: ON/OFF Search
-    }
+    }*/
 
     public void setPersonNumShared(List<Person> persons, Person user){
         for(Person person: persons){
