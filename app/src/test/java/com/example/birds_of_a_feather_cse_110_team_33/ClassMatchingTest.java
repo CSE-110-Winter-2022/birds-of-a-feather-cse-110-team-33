@@ -139,4 +139,33 @@ public class ClassMatchingTest {
             }
         }
     }
+
+    @Test
+    public void testSort() throws Exception {
+        // get all people
+        List<Person> persons = db.personDao().getAll();
+        HomePageActivity activity = Robolectric.setupActivity(HomePageActivity.class);
+
+        for (Person person: persons) {
+            if (person.getPersonId() == james.getPersonId()) {
+                persons.remove(person);
+                break;
+            }
+        }
+
+        activity.setPersonNumShared(persons, james);
+        activity.sortPersonsByNumShared(persons);
+
+        for (int i = 0; i < persons.size(); i++) {
+            Person current = persons.get(i);
+            if (i == 0) {
+                assertEquals(current.getNumShared(), 1);
+                assertEquals(current.getName(), "Ryan");
+            }
+            else if (i == 1) {
+                assertEquals(current.getNumShared(), 0);
+                assertEquals(current.getName(), "Nick");
+            }
+        }
+    }
 }
