@@ -130,10 +130,6 @@ public class UserClassListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onGoBackClickedLD(View view) {
-        finish();
-    }
-
     public void onFinishedClicked(View view) {
         Context context = view.getContext();
         Intent intent  = new Intent(context, HomePageActivity.class);

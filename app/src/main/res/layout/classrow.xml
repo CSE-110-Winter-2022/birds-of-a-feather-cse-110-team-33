@@ -23,4 +23,5 @@
         android:background="@android:drawable/ic_delete"
         android:visibility="gone"
         android:onClick="onDelete" />
+
 </LinearLayout>

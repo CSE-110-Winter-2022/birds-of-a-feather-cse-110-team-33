@@ -51,6 +51,7 @@ public class AddAClassActivity extends AppCompatActivity {
         db = AppDatabase.singleton(this);
         personDao = db.personDao();
         coursesDao = db.coursesDao();
+        setTitle("Add Your Courses");
 
         parentLinearLayout = findViewById(R.id.parent_linear_layout);
 
