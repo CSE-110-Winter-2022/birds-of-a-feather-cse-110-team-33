@@ -17,11 +17,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 
 import java.io.IOException;
 import java.util.List;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(RobolectricTestRunner.class)
 public class ClassMatchingTest {
     private PersonDao personDao;
     private CoursesDao coursesDao;
@@ -81,7 +83,7 @@ public class ClassMatchingTest {
     }
 
     @Test
-    public void testMatching() throws Exception{
+    public void testRemoveUser() throws Exception {
         // created new user
         Person ethan = new Person("Ethan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         ethan.setPersonId(personDao.maxId() + 1);
@@ -110,16 +112,31 @@ public class ClassMatchingTest {
 
         assertEquals(ethan.getNumShared(), 0);
         assertEquals(persons.size(), 3);
+    }
 
-        // set shared courses variable
-        for(Person person: persons){
-            List<Course> shared = personDao.getSharedCourses(person.getPersonId(), ethan.getPersonId());
-            person.setNumShared(shared.size());
-            person.getNumShared();
+    @Test
+    public void testMatching() throws Exception {
+        // get all people
+        List<Person> persons = db.personDao().getAll();
+        HomePageActivity activity = Robolectric.setupActivity(HomePageActivity.class);
+
+        // remove user
+        for (Person person: persons) {
+            if (person.getPersonId() == james.getPersonId()) {
+                persons.remove(person);
+                break;
+            }
         }
 
-        assertEquals(3, personDao.get(1).getNumShared());
-        //assertEquals(0, nick.getNumShared());
-        //assertEquals(1, ryan.getNumShared());
+        activity.setPersonNumShared(persons, james);
+
+        for (Person compared: persons) {
+            if (compared.getPersonId() == nick.getPersonId()) {
+                assertEquals(0, compared.getNumShared());
+            }
+            else if (compared.getPersonId() == ryan.getPersonId()) {
+                assertEquals(1, compared.getNumShared());
+            }
+        }
     }
 }

@@ -31,7 +31,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         db = AppDatabase.singleton(this);
         List<Person> persons = db.personDao().getAll();
-        userId = getIntent().getIntExtra("user",0);
+        userId = getIntent().getIntExtra("user",1);
 
         personsRecyclerView = findViewById(R.id.persons_view);
         personsLayoutManager = new LinearLayoutManager(this);
