@@ -59,8 +59,14 @@ public class UserClassListActivity extends AppCompatActivity {
 
     public void loadNewClasses() {
 
+        LinearLayout firstEntry = (LinearLayout) parentLinearLayout.getChildAt(0);
+        TextView firstTextBox = (TextView) firstEntry.getChildAt(0);
+        if (firstTextBox.getText().toString().equals("Example")) {
+            parentLinearLayout.removeView((View) firstTextBox.getParent());
+        }
+
         SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
-        for (int i = 1; i < howManyCreatedThusFar; i++) {
+        for (int i = 0; i < howManyCreatedThusFar; i++) {
 
             addRow();
 

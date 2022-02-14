@@ -21,5 +21,6 @@
         android:layout_height="48dp"
         android:layout_weight="1"
         android:background="@android:drawable/ic_delete"
+        android:visibility="gone"
         android:onClick="onDelete" />
 </LinearLayout>
