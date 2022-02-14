@@ -50,18 +50,7 @@ public class ClassListTestOne {
         db.close();
     }
 
-    @Test
-    public void testDeleteDefaultEntry() {
-        UserClassListActivity activity = Robolectric.setupActivity(UserClassListActivity.class);
 
-        activity.findViewById(R.id.delete_button).performClick();
-
-        LinearLayout parentLinearLayout = (LinearLayout) activity.findViewById(R.id.parent_linear_layout);
-
-        int parentLinearLayoutChildCount = parentLinearLayout.getChildCount();
-
-        assertEquals(3, parentLinearLayoutChildCount);
-    }
 
     @Test
     public void testSavingCourse() {
