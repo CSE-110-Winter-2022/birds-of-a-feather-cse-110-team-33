@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">birds-of-a-feather-cse-110-team-33</string>
+    <string name="enter_name">Please enter your name</string>
+    <string name="default_name">James</string>
+    <string name="confirm">Confirm Name</string>
+
     <string-array name="quarters">
         <item>Winter</item>
         <item>Spring</item>

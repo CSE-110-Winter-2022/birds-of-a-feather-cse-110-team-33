@@ -25,10 +25,12 @@ import java.util.List;
 
 public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.ViewHolder> {
     private final List<Person> persons;
+    private static int userId;
 
-    public PersonsViewAdapter(List<Person> persons) {
+    public PersonsViewAdapter(List<Person> persons, int userId) {
         super();
         this.persons = persons;
+        this.userId = userId;
     }
 
     // NOT WORKING, NOT USED
@@ -98,6 +100,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             Context context = view.getContext();
             Intent intent = new Intent(context, PersonDetailActivity.class);
             intent.putExtra("person_id", this.person.getPersonId());
+            intent.putExtra("user", userId);
             context.startActivity(intent);
         }
     }

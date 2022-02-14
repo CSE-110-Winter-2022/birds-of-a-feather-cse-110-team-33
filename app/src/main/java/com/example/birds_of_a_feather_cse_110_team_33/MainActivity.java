@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected AppDatabase db;
     protected PersonDao personDao;
     protected CoursesDao coursesDao;
-    protected Person ethan;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,28 +31,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("BoF Start");
 
-        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        //editor.clear();
-        //editor.apply();
 
         AppDatabase.useTestSingleton(this);
         db = AppDatabase.singleton(this);
         personDao = db.personDao();
         coursesDao = db.coursesDao();
-
-        // some testing pre-population
-        // base
-        ethan = new Person("Ethan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
-        personDao.insert(ethan);
-
-        editor.putInt("userId",ethan.getPersonId());
-       // Course ethan110 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "110");
-       // Course ethan112 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "112");
-       // Course ethan132A = new Course(ethan.getPersonId(), 2021, "Spring", "CSE", "132A");
-       // coursesDao.insert(ethan110);
-       // coursesDao.insert(ethan112);
-       // coursesDao.insert(ethan132A);
 
         // share all
         Person james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
@@ -90,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClassBtnClicked(View view) {
         Context context = view.getContext();
-        Intent intent  = new Intent(context, UserClassListActivity.class);
-        intent.putExtra("Ethan id", ethan.getPersonId());
+        Intent intent  = new Intent(context, ConfirmNameActivity.class);
         context.startActivity(intent);
     }
 }

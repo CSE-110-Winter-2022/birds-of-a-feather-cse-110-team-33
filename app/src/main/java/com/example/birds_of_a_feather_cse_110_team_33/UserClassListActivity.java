@@ -11,6 +11,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
+
+import java.util.List;
+
 public class UserClassListActivity extends AppCompatActivity {
 
     private LinearLayout parentLinearLayout;
@@ -22,6 +28,8 @@ public class UserClassListActivity extends AppCompatActivity {
     public String courseNumber;
     public int quarterSpinnerChoice;
     public int yearSpinnerChoice;
+    public CoursesDao coursesDao;
+    protected AppDatabase db;
 
 
 
@@ -32,20 +40,19 @@ public class UserClassListActivity extends AppCompatActivity {
 
         parentLinearLayout = (LinearLayout) findViewById(R.id.parent_linear_layout);
 
-        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
-
         howManyCreatedThusFar = getIntent().getIntExtra("addNum",0);
-        userId = getIntent().getIntExtra("Ethan id",0);
 
-        if (getIntent().getIntExtra("addNum",0) == 0) {
-            howManyCreatedThusFar = preferences.getInt("addNum",0);
-        }
+        userId = getIntent().getIntExtra("user",0);
+        setTitle("Your Current Added Classes");
+
 
         courseSubject = getIntent().getStringExtra("courseSubject");
         courseNumber = getIntent().getStringExtra("courseNumber");
         quarterSpinnerChoice = getIntent().getIntExtra("quarterSpinnerChoice",0);
         yearSpinnerChoice = getIntent().getIntExtra("yearSpinnerChoice",0);
 
+        db = AppDatabase.singleton(this);
+        coursesDao = db.coursesDao();
         loadNewClasses();
 
     }
@@ -85,13 +92,20 @@ public class UserClassListActivity extends AppCompatActivity {
 
         parentLinearLayout.removeView((View) v.getParent());
 
-        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
 
         LinearLayout parentOfDeleteButton = (LinearLayout) v.getParent();
-        int indexToRemoveFromSP = parentOfDeleteButton.indexOfChild(v);
+        TextView textBox = (TextView) parentOfDeleteButton.getChildAt(0);
+        String textBoxText = textBox.getText().toString();
 
+        // Need to delete from DB
+        List<Course> userCourses = coursesDao.getForPerson(userId);
 
+        for (Course course: userCourses) {
+            String currentCourseString = course.toString();
+            if (textBoxText.equals(currentCourseString)) {
+                coursesDao.delete(course);
+            }
+        }
 
         howManyCreatedThusFar--;
 
@@ -102,7 +116,7 @@ public class UserClassListActivity extends AppCompatActivity {
         //Send how many were created so we know where to start from.
 
         intent.putExtra("addNumB",howManyCreatedThusFar);
-        intent.putExtra("Ethan id",userId);
+        intent.putExtra("user",userId);
         intent.putExtra("courseSubject",courseSubject);
         intent.putExtra("courseNumber",courseNumber);
         intent.putExtra("quarterSpinnerChoice",quarterSpinnerChoice);
@@ -117,7 +131,7 @@ public class UserClassListActivity extends AppCompatActivity {
     public void onFinishedClicked(View view) {
         Context context = view.getContext();
         Intent intent  = new Intent(context, HomePageActivity.class);
-        intent.putExtra("Ethan id", userId);
+        intent.putExtra("user", userId);
         context.startActivity(intent);
     }
 
