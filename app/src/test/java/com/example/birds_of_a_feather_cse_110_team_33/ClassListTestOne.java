@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.lifecycle.Lifecycle;
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
@@ -162,6 +164,23 @@ public class ClassListTestOne {
         assertEquals(courseString3, courseString4);
         assertEquals(2,courses.size());
 
+
+    }
+
+    @Test
+    public void testEmptyClassList() {
+        ActivityScenario<UserClassListActivity> scenario = ActivityScenario.launch(UserClassListActivity.class);
+        scenario.moveToState(Lifecycle.State.CREATED);
+
+        // No class added --> empty
+        scenario.onActivity(activity -> {
+            TextView myName = activity.findViewById(R.id.course_edit_text);
+            assertEquals("Example",myName.getText().toString());
+
+
+        });
+
+        scenario.moveToState(Lifecycle.State.DESTROYED);
 
     }
 
