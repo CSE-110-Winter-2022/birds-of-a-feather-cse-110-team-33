@@ -124,6 +124,7 @@ public class AddAClassActivity extends AppCompatActivity {
 
 
         String courseNumString = courseNum.getText().toString();
+        courseNumString = courseNumString.toUpperCase();
 
 
 
