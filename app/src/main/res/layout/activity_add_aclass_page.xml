@@ -17,7 +17,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintVertical_bias="0.913" />
 
     <EditText
         android:id="@+id/course_subject_edit_text"
@@ -111,21 +111,50 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.715" />
+        app:layout_constraintVertical_bias="0.676" />
 
     <TextView
         android:id="@+id/years_spinner_label"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:text="Year"
-        android:textSize="30dp"
         android:textColor="#54A4AC"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.715" />
+        app:layout_constraintVertical_bias="0.676" />
+
+    <TextView
+        android:id="@+id/class_size_spinner_label"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Class Size"
+        android:textColor="#54A4AC"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.807" />
+
+    <Spinner
+        android:id="@+id/class_size_spinner"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_weight="3"
+        android:entries="@array/class_size"
+        android:gravity="right"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.807" />
 
     <Button
         android:id="@+id/go_back_btnAACP"
@@ -134,11 +163,11 @@
         android:onClick="onGoBackAACPClicked"
         android:text="Go Back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.916" />
+        app:layout_constraintVertical_bias="0.983" />
 
     <TextView
         android:id="@+id/add_a_class_title"

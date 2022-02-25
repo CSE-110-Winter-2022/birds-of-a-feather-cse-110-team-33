@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
 
 import java.util.List;
 
@@ -28,8 +29,11 @@ public class UserClassListActivity extends AppCompatActivity {
     public String courseNumber;
     public int quarterSpinnerChoice;
     public int yearSpinnerChoice;
+    public int classSizeSpinnerChoice;
     public CoursesDao coursesDao;
+    public PersonDao personDao;
     protected AppDatabase db;
+    public List<Course> listCourse;
 
 
 
@@ -45,14 +49,21 @@ public class UserClassListActivity extends AppCompatActivity {
         userId = getIntent().getIntExtra("user",0);
         setTitle("Your Current Added Classes");
 
+        db = AppDatabase.singleton(this);
+        coursesDao = db.coursesDao();
+        personDao = db.personDao();
+
+        if (howManyCreatedThusFar != 0) {
+            listCourse = coursesDao.getForPerson(userId);
+        }
 
         courseSubject = getIntent().getStringExtra("courseSubject");
         courseNumber = getIntent().getStringExtra("courseNumber");
         quarterSpinnerChoice = getIntent().getIntExtra("quarterSpinnerChoice",0);
         yearSpinnerChoice = getIntent().getIntExtra("yearSpinnerChoice",0);
+        classSizeSpinnerChoice = getIntent().getIntExtra("classSizeSpinnerChoice",0);
 
-        db = AppDatabase.singleton(this);
-        coursesDao = db.coursesDao();
+
         loadNewClasses();
 
     }
@@ -80,8 +91,9 @@ public class UserClassListActivity extends AppCompatActivity {
         for (int i = 0; i < howManyCreatedThusFar; i++) {
             LinearLayout currentEntry = (LinearLayout) parentLinearLayout.getChildAt(i);
             TextView classFound = (TextView) currentEntry.getChildAt(0);
+            String classFoundTextDB = listCourse.get(i).toString();
             String classFoundText = preferences.getString("classRow" + i,"");
-            classFound.setText(classFoundText);
+            classFound.setText(classFoundTextDB);
 
         }
 
@@ -130,6 +142,7 @@ public class UserClassListActivity extends AppCompatActivity {
         intent.putExtra("courseNumber",courseNumber);
         intent.putExtra("quarterSpinnerChoice",quarterSpinnerChoice);
         intent.putExtra("yearSpinnerChoice",yearSpinnerChoice);
+        intent.putExtra("classSizeSpinnerChoice",classSizeSpinnerChoice);
         startActivity(intent);
     }
 

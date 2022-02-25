@@ -25,6 +25,7 @@ public class AddAClassActivity extends AppCompatActivity {
 
     public final String[] years = new String[]{"2016","2017","2018","2019","2020","2021","2022"};
     public final String[] quarters = new String[]{"Winter","Spring","Summer_1","Summer_2","SSS","Fall"};
+    public final String[] classSizes = new String[]{"Tiny","Small","Medium","Large","Huge","Gigantic"};
 
 
 
@@ -38,6 +39,7 @@ public class AddAClassActivity extends AppCompatActivity {
     public String courseNumber;
     public int quarterSpinnerChoice;
     public int yearSpinnerChoice;
+    public int classSizeSpinnerChoice;
 
 
 
@@ -67,6 +69,7 @@ public class AddAClassActivity extends AppCompatActivity {
         courseNumber = getIntent().getStringExtra("courseNumber");
         quarterSpinnerChoice = getIntent().getIntExtra("quarterSpinnerChoice",0);
         yearSpinnerChoice = getIntent().getIntExtra("yearSpinnerChoice",0);
+        classSizeSpinnerChoice = getIntent().getIntExtra("classSizeSpinnerChoice",0);
 
         if (numFromListDisplay > 0) {
             setTextWithPreviousEntry();
@@ -79,11 +82,13 @@ public class AddAClassActivity extends AppCompatActivity {
         TextView courseNum = (TextView) findViewById(R.id.course_number_edit_text);
         Spinner season = (Spinner) findViewById(R.id.quarters_spinner);
         Spinner year = (Spinner) findViewById(R.id.years_spinner);
+        Spinner classSize = (Spinner) findViewById(R.id.class_size_spinner);
 
         courseName.setText(courseSubject);
         courseNum.setText(courseNumber);
         season.setSelection(quarterSpinnerChoice);
         year.setSelection(yearSpinnerChoice);
+        classSize.setSelection(classSizeSpinnerChoice);
 
 
     }
@@ -106,9 +111,11 @@ public class AddAClassActivity extends AppCompatActivity {
         TextView courseNum = (TextView) findViewById(R.id.course_number_edit_text);
         Spinner season = (Spinner) findViewById(R.id.quarters_spinner);
         Spinner year = (Spinner) findViewById(R.id.years_spinner);
+        Spinner classSize = (Spinner) findViewById(R.id.class_size_spinner);
 
         int seasonChoice = season.getSelectedItemPosition();
         int yearChoice = year.getSelectedItemPosition();
+        int classSizeChoice = classSize.getSelectedItemPosition();
 
 
 
@@ -168,13 +175,13 @@ public class AddAClassActivity extends AppCompatActivity {
 
 
         //Somehow add the row of new info into the ListDisplay.class file
-        String toSend = courseNameString + " " + courseNum.getText().toString() + " " + quarters[seasonChoice] + " " + years[yearChoice];
+        String toSend = courseNameString + " " + courseNum.getText().toString() + " " + quarters[seasonChoice] + " " + years[yearChoice] + " " + classSizes[classSizeChoice];
 
         editor.putString("classRow" + saveClicks,toSend);
 
         editor.apply();
 
-        Course newCourse = new Course(userIdd,Integer.parseInt(years[yearChoice]),quarters[seasonChoice],courseNameString,courseNum.getText().toString());
+        Course newCourse = new Course(userIdd,Integer.parseInt(years[yearChoice]),quarters[seasonChoice],courseNameString,courseNum.getText().toString(),classSizes[classSizeChoice]);
         coursesDao.insert(newCourse);
 
         // Also keep the info thats filled in for when the user comes back.
@@ -182,6 +189,7 @@ public class AddAClassActivity extends AppCompatActivity {
         courseNum.setText(courseNum.getText().toString());
         season.setSelection(seasonChoice);
         year.setSelection(yearChoice);
+        classSize.setSelection(classSizeChoice);
 
         saveClicks++;
 
@@ -189,6 +197,7 @@ public class AddAClassActivity extends AppCompatActivity {
         courseNumber = courseNum.getText().toString();
         quarterSpinnerChoice = seasonChoice;
         yearSpinnerChoice = yearChoice;
+        classSizeSpinnerChoice = classSizeChoice;
 
 
         Toast.makeText(AddAClassActivity.this,"Class Saved!", Toast.LENGTH_SHORT).show();
@@ -205,6 +214,7 @@ public class AddAClassActivity extends AppCompatActivity {
         intent.putExtra("courseNumber",courseNumber);
         intent.putExtra("quarterSpinnerChoice",quarterSpinnerChoice);
         intent.putExtra("yearSpinnerChoice",yearSpinnerChoice);
+        intent.putExtra("classSizeSpinnerChoice",classSizeSpinnerChoice);
         intent.putExtra("user", userIdd);
         setResult(RESULT_OK, intent);
 
