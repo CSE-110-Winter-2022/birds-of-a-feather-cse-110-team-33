@@ -9,12 +9,13 @@ import androidx.room.PrimaryKey;
 public class Course {
     // add a course
     // should store the info (year, quarter, subject, course #)
-    public Course(int personId, int year, String quarter, String subject, String course_num) {
+    public Course(int personId, int year, String quarter, String subject, String course_num,String course_size) {
         this.personId = personId;
         this.year = year;
         this.quarter = quarter;
         this.subject = subject;
         this.course_num = course_num;
+        this.course_size = course_size;
     }
 
     @PrimaryKey(autoGenerate = true)
@@ -36,11 +37,16 @@ public class Course {
     @ColumnInfo(name = "course_num")
     public String course_num;
 
+    @ColumnInfo(name = "course_size")
+    public String course_size;
+
     public int getCourseId() { return courseId; }
     public void setCourseId(int courseId) { this.courseId = courseId; }
     public int getPersonId() { return personId; }
     public void setPersonId(int personId) { this.personId = personId; }
+    public String getCourseSize() {return course_size; }
+    public void setCourseSize(String course_size) { this.course_size = course_size; }
     public String toString() {
-        return subject + " " + course_num + " " + quarter + " " + year;
+        return subject + " " + course_num + " " + quarter + " " + year + " " + course_size;
     }
 }
