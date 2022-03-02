@@ -1,14 +1,17 @@
 package com.example.birds_of_a_feather_cse_110_team_33;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
@@ -26,11 +29,26 @@ public class PersonDetailActivity extends AppCompatActivity {
     private ProfileViewAdapter profileViewAdapter;
     private TextView name;
     private ImageView photo;
+    private ToggleButton favButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_detail);
+
+        // Favorite Button Functionality
+        favButton = (ToggleButton) findViewById(R.id.favorite);
+        favButton.setChecked(false);
+        favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_off));
+        favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_on));
+                else
+                    favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_off));
+            }
+        });
 
         Intent intent = getIntent();
         int personId = intent.getIntExtra("person_id", 0);

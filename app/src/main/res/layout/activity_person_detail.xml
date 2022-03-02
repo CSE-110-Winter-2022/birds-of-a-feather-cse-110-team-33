@@ -57,4 +57,15 @@
         android:layout_marginTop="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shared_title" />
+
+    <ToggleButton
+        android:id="@+id/favorite"
+        android:layout_width="58dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="231dp"
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
