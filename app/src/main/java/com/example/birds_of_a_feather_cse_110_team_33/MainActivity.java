@@ -17,6 +17,9 @@ import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
+import com.google.gson.Gson;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         personDao = db.personDao();
         coursesDao = db.coursesDao();
 
+
+    }
+
+    public void onClassBtnClicked(View view) {
         // share all
         Person james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         james.setPersonId(personDao.maxId() + 1);
@@ -69,11 +76,50 @@ public class MainActivity extends AppCompatActivity {
         coursesDao.insert(ryan110);
         coursesDao.insert(ryan112);
         coursesDao.insert(ryan132A);
-    }
 
-    public void onClassBtnClicked(View view) {
         Context context = view.getContext();
         Intent intent  = new Intent(context, ConfirmNameActivity.class);
         context.startActivity(intent);
+
+    }
+
+
+    public void onLoadPreviousSessionClicked(View view) {
+        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+
+        String json = preferences.getString("savedPersons", "");
+        List<Person> previousList = gson.fromJson(json, List.class);
+
+
+        //Store List of people into db
+        for (int i = 0; i < previousList.size(); i++) {
+            db.personDao().insert(previousList.get(i));
+        }
+
+
+        //Now we need course
+        for (int i = 0; i < previousList.size(); i++) {
+            Gson gsonTemp = new Gson();
+
+            String jsonTemp = preferences.getString("savedCourses" + i, "");
+            List<Course> courseList = gsonTemp.fromJson(jsonTemp, List.class);
+
+            for (int j = 0; j < courseList.size(); j++) {
+                db.coursesDao().insert(courseList.get(j));
+            }
+        }
+
+
+        //Empty the preferences after we load everything
+        editor.clear();
+
+        //Start HomePageActivity
+        Context context = view.getContext();
+        Intent intent  = new Intent(context, HomePageActivity.class);
+        context.startActivity(intent);
+
+
     }
 }
