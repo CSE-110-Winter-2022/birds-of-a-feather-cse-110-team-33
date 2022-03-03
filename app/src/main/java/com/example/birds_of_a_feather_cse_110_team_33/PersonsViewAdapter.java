@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -92,10 +93,18 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked)
+                    Context context = personNameView.getContext();
+                    int duration = Toast.LENGTH_SHORT;
+                    CharSequence text;
+                    if (isChecked) {
                         favButton.setBackgroundDrawable(ContextCompat.getDrawable(personNameView.getContext(), R.drawable.fav_on));
-                    else
+                        text = "Favorite added";
+                    } else {
                         favButton.setBackgroundDrawable(ContextCompat.getDrawable(personNameView.getContext(), R.drawable.fav_off));
+                        text = "Favorite removed";
+                    }
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 }
             });
             itemView.setOnClickListener(this);

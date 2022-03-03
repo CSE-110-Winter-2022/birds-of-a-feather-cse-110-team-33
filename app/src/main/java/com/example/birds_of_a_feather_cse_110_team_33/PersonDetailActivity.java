@@ -5,12 +5,14 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
@@ -43,10 +45,18 @@ public class PersonDetailActivity extends AppCompatActivity {
         favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+                CharSequence text;
+                if (isChecked) {
                     favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_on));
-                else
+                    text = "Favorite added";
+                } else {
                     favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_off));
+                    text = "Favorite removed";
+                }
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         });
 
