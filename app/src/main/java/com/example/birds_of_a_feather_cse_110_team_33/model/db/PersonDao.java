@@ -31,6 +31,15 @@ public interface PersonDao {
             "AND a.course_num=b.course_num")
     List<Course> getSharedCourses(int id, int userId);
 
+    @Query("SELECT b.* FROM courses a, courses b " +
+            "WHERE a.person_id=:id AND b.person_id=:userId " + //compares user and other
+            "AND a.quarter=b.quarter " +
+            "AND a.subject=b.subject " +
+            "AND a.year=b.year " +
+            "AND a.course_num=b.course_num " +
+            "AND a.quarter=:current_qtr")
+    List<Course> getCurrentSharedCourses(int id, int userId, String current_qtr);
+
     @Insert
     void insert(Person person);
 
