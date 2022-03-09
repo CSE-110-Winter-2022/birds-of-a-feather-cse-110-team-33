@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.birds_of_a_feather_cse_110_team_33.filtering_sorting.CurrentFilter;
 import com.example.birds_of_a_feather_cse_110_team_33.filtering_sorting.IFilter;
 import com.example.birds_of_a_feather_cse_110_team_33.filtering_sorting.ISorter;
 import com.example.birds_of_a_feather_cse_110_team_33.filtering_sorting.SizeSorter;
@@ -54,8 +55,8 @@ public class HomePageActivity extends AppCompatActivity {
         filter = new TotalFilter();
         filter.filter(persons);
 
-        sorter = new SizeSorter();
-        sorter.sort(persons);
+        //sorter = new SizeSorter();
+        //sorter.sort(persons);
 
         personsViewAdapter = new PersonsViewAdapter(persons, userId);
         personsRecyclerView.setAdapter(personsViewAdapter);
@@ -77,9 +78,14 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public void setPersonNumShared(List<Person> persons, Person user){
-        for(Person person: persons){
+        for(Person person: persons) {
             person.setNumShared(db.personDao().
                                 getSharedCourses(person.getPersonId(), user.getPersonId()).size());
+        }
+
+        for(Person person: persons) {
+            person.setCurrentShared(db.personDao().
+                    getCurrentSharedCourses(person.getPersonId(), user.getPersonId(), "Winter", 2021).size());
         }
     }
 }

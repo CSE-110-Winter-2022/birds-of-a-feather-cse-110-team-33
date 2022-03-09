@@ -1,6 +1,7 @@
 package com.example.birds_of_a_feather_cse_110_team_33;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +26,7 @@ public class PersonDetailActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager profileLayoutManager;
     private ProfileViewAdapter profileViewAdapter;
     private TextView name;
-    private ImageView photo;
+    private TextView photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class PersonDetailActivity extends AppCompatActivity {
         // set profile name
         name = findViewById(R.id.profile_name);
         photo = findViewById(R.id.profile_pic);
+        photo.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.default_pp));
         name.setText(person.getName());
 
         // set profile picture, not working yet

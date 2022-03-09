@@ -24,7 +24,7 @@ public class Person {
     @ColumnInfo(name = "num_shared")
     public int num_shared;
 
-    @ColumnInfo(name = "num_shared")
+    @ColumnInfo(name = "current_shared")
     public int current_shared;
 
     public Person(String name, String photo) {

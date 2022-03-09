@@ -59,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
         coursesDao.insert(nick112);
         coursesDao.insert(nick132A);
 
-        // share one
+        // share two
         Person ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         ryan.setPersonId(personDao.maxId() + 1);
         personDao.insert(ryan);
         Course ryan110 = new Course(ryan.getPersonId(), 2021, "Winter", "CSE", "110","Tiny");
         Course ryan112 = new Course(ryan.getPersonId(), 2022, "Winter", "CSE", "112","Small");
-        Course ryan132A = new Course(ryan.getPersonId(), 2022, "Spring", "CSE", "132A","Large");
+        Course ryan132A = new Course(ryan.getPersonId(), 2021, "Spring", "CSE", "132A","Large");
         coursesDao.insert(ryan110);
         coursesDao.insert(ryan112);
         coursesDao.insert(ryan132A);

@@ -37,8 +37,9 @@ public interface PersonDao {
             "AND a.subject=b.subject " +
             "AND a.year=b.year " +
             "AND a.course_num=b.course_num " +
-            "AND a.quarter=:current_qtr")
-    List<Course> getCurrentSharedCourses(int id, int userId, String current_qtr);
+            "AND a.quarter=:current_qtr " +
+            "AND a.year=:current_year")
+    List<Course> getCurrentSharedCourses(int id, int userId, String current_qtr, int current_year);
 
     @Insert
     void insert(Person person);

@@ -12,6 +12,7 @@
         <item>SSS</item>
         <item>Fall</item>
     </string-array>
+
     <string-array name="years">
         <item>2016</item>
         <item>2017</item>
@@ -21,6 +22,7 @@
         <item>2021</item>
         <item>2022</item>
     </string-array>
+
     <string-array name="class_size">
         <item>Tiny (&lt;40)</item>
         <item>Small (40-75)</item>
@@ -28,5 +30,12 @@
         <item>Large (150-250)</item>
         <item>Huge (250-400)</item>
         <item>Gigantic (400+)</item>
+    </string-array>
+
+    <string-array name="filters">
+        <item>Total Shared Classes</item>
+        <item>Current Shared Classes</item>
+        <item>Class Size</item>
+        <item>Recency</item>
     </string-array>
 </resources>

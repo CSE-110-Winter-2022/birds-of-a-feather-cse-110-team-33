@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
@@ -73,8 +74,9 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView personNameView;
-        private final ImageView personImageView;
+        private final TextView personImageView;
         private final TextView sharedCoursesView;
+        private final TextView currentCoursesView;
         private Person person;
 
         ViewHolder(View itemView) {
@@ -82,6 +84,8 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             this.personNameView = itemView.findViewById(R.id.person_row_name);
             this.personImageView = itemView.findViewById(R.id.profile_pic);
             this.sharedCoursesView = itemView.findViewById(R.id.shared_courses);
+            this.currentCoursesView = itemView.findViewById(R.id.current_courses);
+            personImageView.setBackgroundDrawable(ContextCompat.getDrawable(personNameView.getContext(), R.drawable.default_pp));
             itemView.setOnClickListener(this);
         }
 
@@ -89,10 +93,10 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             this.person = person;
             this.personNameView.setText(person.getName());
 
-            // NOT DONE!!!!
-            // this.personImageView.setImageBitmap(getBitmapFromURL(person.getPhoto()));
+            personImageView.setBackgroundDrawable(ContextCompat.getDrawable(personNameView.getContext(), R.drawable.default_pp));
 
-            this.sharedCoursesView.setText("Shared Courses: " + person.getNumShared());
+            this.currentCoursesView.setText("Current: " + person.getCurrentShared());
+            this.sharedCoursesView.setText("Total: " + person.getNumShared());
         }
 
         @Override
