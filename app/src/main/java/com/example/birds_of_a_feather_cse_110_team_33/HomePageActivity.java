@@ -47,6 +47,9 @@ public class HomePageActivity extends AppCompatActivity {
 
         sessionCount = preferences.getInt("sessionCountPref",0);
 
+        //Only when coming from "UserClassList" Does this become 0, if not its 1, and thus
+        // its not the first time we loaded this page.
+        int initialCount = getIntent().getIntExtra("initialCount",1);
 
 
         db = AppDatabase.singleton(this);
@@ -62,7 +65,7 @@ public class HomePageActivity extends AppCompatActivity {
         personsRecyclerView.setLayoutManager(personsLayoutManager);
 
 
-        if (sessionCount  != 0) {
+        if (initialCount  != 0) {
             Person userToSave = personDao.get(userId);
             Gson gson = new Gson();
             String json = gson.toJson(userToSave);
@@ -102,7 +105,9 @@ public class HomePageActivity extends AppCompatActivity {
         approvalToLoadNewSession = preferences.getBoolean("approvalToLoad",false);
         sessionToLoad = preferences.getInt("sessionToLoad",0);
 
-        loadSession(approvalToLoadNewSession,sessionToLoad);
+        if (initialCount != 0) {
+            loadSession(approvalToLoadNewSession,sessionToLoad);
+        }
 
     }
 

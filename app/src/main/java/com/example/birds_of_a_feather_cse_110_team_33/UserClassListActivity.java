@@ -150,6 +150,7 @@ public class UserClassListActivity extends AppCompatActivity {
         Context context = view.getContext();
         Intent intent  = new Intent(context, HomePageActivity.class);
         intent.putExtra("user", userId);
+        intent.putExtra("initialCount",0);
         context.startActivity(intent);
     }
 
