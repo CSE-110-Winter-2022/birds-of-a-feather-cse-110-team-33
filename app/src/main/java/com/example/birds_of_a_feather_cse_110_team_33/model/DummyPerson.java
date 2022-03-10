@@ -11,11 +11,13 @@ public class DummyPerson {
     public int personId;
     public String name;
     public String photo;
+    public boolean isFavorite;
 
     public DummyPerson(int personId, String name, String photo) {
         this.personId = personId;
         this.name = name;
         this.photo = photo;
+        this.isFavorite = false;
     }
 
     public DummyPerson(String name) { this.name = name; }
@@ -25,4 +27,6 @@ public class DummyPerson {
     public void setDummyName(String name) { this.name = name; }
     public String getDummyPhoto() { return photo; }
     public void setDummyPhoto(String photo) { this.photo = photo; }
+    public boolean getDummyFavorite() { return isFavorite; }
+    public void setDummyFavorite() { this.isFavorite = true; }
 }

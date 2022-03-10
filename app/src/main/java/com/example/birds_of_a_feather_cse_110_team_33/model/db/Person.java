@@ -24,6 +24,9 @@ public class Person {
     @ColumnInfo(name = "num_shared")
     public int num_shared;
 
+    @ColumnInfo(name = "favorite")
+    public boolean isFavorite;
+
     public Person(String name, String photo) {
         this.name = name;
         this.photo = photo;
@@ -37,4 +40,7 @@ public class Person {
     public void setPhoto(String photo) { this.photo = photo; }
     public int getNumShared() { return num_shared; }
     public void setNumShared(int num_shared) { this.num_shared = num_shared; }
+    public boolean getFavorite() { return isFavorite; }
+    public void setFavorite() { this.isFavorite = true; }
+    public void setNFavorite() { this.isFavorite = false; }
 }
