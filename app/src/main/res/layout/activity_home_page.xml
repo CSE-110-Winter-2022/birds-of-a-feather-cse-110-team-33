@@ -43,10 +43,21 @@
         android:id="@+id/save_session_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="252dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="268dp"
+        android:layout_marginTop="4dp"
         android:onClick="saveSession"
         android:text="Save Session"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/load_session_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="268dp"
+        android:layout_marginTop="52dp"
+        android:onClick="loadSessionBtnClicked"
+        android:text="Load Session"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

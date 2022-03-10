@@ -36,4 +36,5 @@ public interface PersonDao {
 
     @Delete
     void delete(Person person);
+
 }

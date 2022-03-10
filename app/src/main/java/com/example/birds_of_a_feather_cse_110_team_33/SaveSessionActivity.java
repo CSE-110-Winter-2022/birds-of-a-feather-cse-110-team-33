@@ -22,6 +22,7 @@ import java.util.Locale;
 public class SaveSessionActivity extends AppCompatActivity {
     
     private int currentSessionCount;
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +30,12 @@ public class SaveSessionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_save_session);
 
 
-        currentSessionCount = getIntent().getIntExtra("sessionCount",0);
+        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
 
+
+        //Grab current session count, this could be saved session #1 or #8, who knows
+        currentSessionCount = preferences.getInt("sessionCountPref",0);
 
 
     }
@@ -59,16 +64,14 @@ public class SaveSessionActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, HomePageActivity.class);
 
-        Toast.makeText(SaveSessionActivity.this,"Session Saved As: " + sessionNameString, Toast.LENGTH_SHORT).show();
+        Toast.makeText(SaveSessionActivity.this,"Session Saved As: " + sessionNameString, Toast.LENGTH_LONG).show();
 
 
-        //Let message display, delay to let user see it, then we are good to goto next activity.
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                // yourMethod();
-            }
-        }, 3000);
+        userId = getIntent().getIntExtra("user",1);
+
+        //intent.putExtra("user",userId);
+
+
 
 
 

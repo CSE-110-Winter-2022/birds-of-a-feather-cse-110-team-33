@@ -34,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("BoF Start");
 
+        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+
+        //Reset all of the data in SharedPreferences before starting.
+        editor.clear();
+
 
         AppDatabase.useTestSingleton(this);
         db = AppDatabase.singleton(this);
@@ -84,42 +91,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void onLoadPreviousSessionClicked(View view) {
-        SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        Gson gson = new Gson();
 
-        String json = preferences.getString("savedPersons", "");
-        List<Person> previousList = gson.fromJson(json, List.class);
-
-
-        //Store List of people into db
-        for (int i = 0; i < previousList.size(); i++) {
-            db.personDao().insert(previousList.get(i));
-        }
-
-
-        //Now we need course
-        for (int i = 0; i < previousList.size(); i++) {
-            Gson gsonTemp = new Gson();
-
-            String jsonTemp = preferences.getString("savedCourses" + i, "");
-            List<Course> courseList = gsonTemp.fromJson(jsonTemp, List.class);
-
-            for (int j = 0; j < courseList.size(); j++) {
-                db.coursesDao().insert(courseList.get(j));
-            }
-        }
-
-
-        //Empty the preferences after we load everything
-        editor.clear();
-
-        //Start HomePageActivity
-        Context context = view.getContext();
-        Intent intent  = new Intent(context, HomePageActivity.class);
-        context.startActivity(intent);
-
-
-    }
 }

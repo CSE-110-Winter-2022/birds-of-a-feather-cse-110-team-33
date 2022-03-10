@@ -29,4 +29,6 @@
         <item>Huge (250-400)</item>
         <item>Gigantic (400+)</item>
     </string-array>
+    <string-array name="saved_sessions_list">
+    </string-array>
 </resources>
