@@ -24,7 +24,7 @@ public class CurrentFilter implements IFilter {
         Collections.sort(persons, new Comparator<Person>() {
             @Override
             public int compare(Person p1, Person p2) {
-                return p2.getNumShared() - p1.getNumShared();
+                return p2.getCurrentShared() - p1.getCurrentShared();
             }
         });
     }

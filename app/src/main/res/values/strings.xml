@@ -3,6 +3,7 @@
     <string name="enter_name">Please enter your name</string>
     <string name="default_name">James</string>
     <string name="confirm">Confirm Name</string>
+    <string name="current_qtr">Winter</string>
 
     <string-array name="quarters">
         <item>Winter</item>

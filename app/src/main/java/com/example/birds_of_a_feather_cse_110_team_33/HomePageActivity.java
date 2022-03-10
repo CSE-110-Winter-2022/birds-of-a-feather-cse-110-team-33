@@ -25,6 +25,7 @@ public class HomePageActivity extends AppCompatActivity {
     private AppDatabase db;
     private int userId;
     private IFilter filter;
+    private Person user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,6 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         db = AppDatabase.singleton(this);
-        //List<Person> persons = db.personDao().getAll();
         userId = getIntent().getIntExtra("user",1);
 
         personsRecyclerView = findViewById(R.id.persons_view);
@@ -40,7 +40,7 @@ public class HomePageActivity extends AppCompatActivity {
         personsRecyclerView.setLayoutManager(personsLayoutManager);
         filterSpinner = findViewById(R.id.filters_spinner);
 
-        Person user = db.personDao().get(userId);
+        user = db.personDao().get(userId);
         setTitle(user.getName() + "'s Birds of a Feather");
 
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -64,10 +64,10 @@ public class HomePageActivity extends AppCompatActivity {
                         filter = new CurrentFilter();
                         break;
                     case 2:
-                        filter = new SizeFilter();
+                        filter = new SizeFilter(getApplicationContext(), userId);
                         break;
                     case 3:
-                        filter = new RecencyFilter();
+                        filter = new RecencyFilter(getApplicationContext(), userId);
                         break;
                 }
                 filter.filter(person);
@@ -121,7 +121,8 @@ public class HomePageActivity extends AppCompatActivity {
 
         for(Person person: persons) {
             person.setCurrentShared(db.personDao().
-                    getCurrentSharedCourses(person.getPersonId(), user.getPersonId(), "Winter", 2021).size());
+                    getCurrentSharedCourses(person.getPersonId(), user.getPersonId(),
+                            getString(R.string.current_qtr), getResources().getInteger(R.integer.current_year)).size());
         }
     }
 
