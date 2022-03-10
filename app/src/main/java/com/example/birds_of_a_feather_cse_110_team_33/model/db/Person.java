@@ -27,6 +27,9 @@ public class Person {
     @ColumnInfo(name = "favorite")
     public boolean isFavorite;
 
+    @ColumnInfo(name = "waved")
+    public boolean hasWaved;
+
     public Person(String name, String photo) {
         this.name = name;
         this.photo = photo;
@@ -43,4 +46,6 @@ public class Person {
     public boolean getFavorite() { return isFavorite; }
     public void setFavorite() { this.isFavorite = true; }
     public void setNFavorite() { this.isFavorite = false; }
+    public void setWaved() { this.hasWaved = true; }
+    public void setNWaved() { this.hasWaved = false; }
 }
