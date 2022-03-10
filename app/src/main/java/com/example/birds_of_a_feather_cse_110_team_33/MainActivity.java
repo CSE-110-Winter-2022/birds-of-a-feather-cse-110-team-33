@@ -9,7 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 
 
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("BoF Start");
-
 
         AppDatabase.useTestSingleton(this);
         db = AppDatabase.singleton(this);
@@ -72,8 +73,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClassBtnClicked(View view) {
-        Context context = view.getContext();
-        Intent intent  = new Intent(context, ConfirmNameActivity.class);
-        context.startActivity(intent);
+        BluetoothPopup popUpClass = new BluetoothPopup();
+        popUpClass.showPopupWindow(view);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                Context context = view.getContext();
+                Intent intent  = new Intent(context, ConfirmNameActivity.class);
+                context.startActivity(intent);
+            }
+        }, 5000);
     }
 }
