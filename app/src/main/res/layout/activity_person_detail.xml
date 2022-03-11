@@ -67,4 +67,14 @@
         android:textOn=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/wave"
+        android:layout_width="58dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="283dp"
+        android:layout_marginTop="231dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wave" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class PersonDetailActivity extends AppCompatActivity {
     private TextView name;
     private ToggleButton favButton;
     private TextView photo;
+    private ImageButton waveBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,20 @@ public class PersonDetailActivity extends AppCompatActivity {
         favButton = (ToggleButton) findViewById(R.id.favorite);
         favButton.setChecked(person.isFavorite);
         favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_off));
+
+        // Wave Button Functionality
+        waveBtn = (ImageButton) findViewById(R.id.wave);
+        waveBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v) {
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+                CharSequence text = "Waved";
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
 
         // Initialize correct button states
         if(person.isFavorite) {
