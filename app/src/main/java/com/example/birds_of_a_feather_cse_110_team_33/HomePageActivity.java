@@ -110,10 +110,6 @@ public class HomePageActivity extends AppCompatActivity {
 
         user = personDao.get(userId);
 
-        //2nd Time this is ran, its a null object
-
-        user = db.personDao().get(userId);
-
         setTitle(user.getName() + "'s Birds of a Feather");
 
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

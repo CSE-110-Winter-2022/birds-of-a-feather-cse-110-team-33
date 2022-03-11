@@ -44,7 +44,7 @@ public class ClassMatchingTest {
         // PREPOPULATE DATABASE
 
         // share all
-        Person james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         james.setPersonId(personDao.maxId() + 1);
         personDao.insert(james);
 
@@ -56,7 +56,7 @@ public class ClassMatchingTest {
         coursesDao.insert(james132A);
 
         // share none
-        Person nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         nick.setPersonId(personDao.maxId() + 1);
         personDao.insert(nick);
 
@@ -69,7 +69,7 @@ public class ClassMatchingTest {
         coursesDao.insert(nick132A);
 
         // share two
-        Person ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         ryan.setPersonId(personDao.maxId() + 1);
         personDao.insert(ryan);
 
@@ -143,7 +143,7 @@ public class ClassMatchingTest {
                 assertEquals(0, compared.getNumShared());
             }
             else if (compared.getPersonId() == ryan.getPersonId()) {
-                assertEquals(1, compared.getNumShared());
+                assertEquals(2, compared.getNumShared());
             }
         }
     }

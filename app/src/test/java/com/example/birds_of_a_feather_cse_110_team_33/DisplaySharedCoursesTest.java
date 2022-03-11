@@ -54,7 +54,7 @@ public class DisplaySharedCoursesTest {
         coursesDao.insert(ethan132A);
 
         // share all
-        Person james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         james.setPersonId(personDao.maxId() + 1);
         personDao.insert(james);
 
@@ -67,7 +67,7 @@ public class DisplaySharedCoursesTest {
         coursesDao.insert(james132A);
 
         // share none
-        Person nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         nick.setPersonId(personDao.maxId() + 1);
         personDao.insert(nick);
 
@@ -80,7 +80,7 @@ public class DisplaySharedCoursesTest {
         coursesDao.insert(nick132A);
 
         // share two
-        Person ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         ryan.setPersonId(personDao.maxId() + 1);
         personDao.insert(ryan);
 
@@ -107,7 +107,7 @@ public class DisplaySharedCoursesTest {
         assertEquals(shared1.size(), 3);
 
         List<Course> shared2 = personDao.getSharedCourses(ethan.getPersonId(), ryan.getPersonId());
-        assertEquals(shared2.size(), 1);
+        assertEquals(shared2.size(), 2);
         for (Course course: shared) {
             String courseName = course.toString();
             assertEquals(courseName, "CSE 110 Winter 2021");
