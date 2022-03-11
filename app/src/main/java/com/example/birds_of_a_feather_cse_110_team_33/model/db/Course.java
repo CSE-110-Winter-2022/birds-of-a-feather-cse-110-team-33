@@ -44,7 +44,9 @@ public class Course {
     public void setCourseId(int courseId) { this.courseId = courseId; }
     public int getPersonId() { return personId; }
     public void setPersonId(int personId) { this.personId = personId; }
-    public String getCourseSize() {return course_size; }
+    public String getCourseSize() { return course_size; }
+    public String getQtr() { return this.quarter; }
+    public int getYear() { return this.year; }
     public void setCourseSize(String course_size) { this.course_size = course_size; }
     public String toString() {
         return subject + " " + course_num + " " + quarter + " " + year + " " + course_size;

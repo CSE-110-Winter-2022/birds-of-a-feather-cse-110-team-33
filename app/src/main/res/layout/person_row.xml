@@ -9,7 +9,7 @@
     android:clickable="true"
     android:gravity="center_vertical">
 
-    <ImageView
+    <TextView
         android:id="@+id/profile_pic"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -18,13 +18,13 @@
         android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/person_row_name"
-        android:layout_width="152dp"
-        android:layout_height="26dp"
+        android:layout_width="125dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:height="32sp"
@@ -33,15 +33,25 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/shared_courses"
-        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toEndOf="@+id/profile_pic"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.571"
         tools:text="Ethaniel" />
 
     <TextView
+        android:id="@+id/current_courses"
+        android:layout_width="52dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:text="Current: #"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/person_row_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/shared_courses"
-        android:layout_width="94dp"
+        android:layout_width="45dp"
         android:layout_height="14dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="56dp"

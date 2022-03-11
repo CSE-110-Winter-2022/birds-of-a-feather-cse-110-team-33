@@ -13,6 +13,12 @@
             android:name=".FavoriteListActivity"
             android:exported="false" />
         <activity
+            android:name=".LoadSessionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SaveSessionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ConfirmNameActivity"
             android:exported="false" />
         <activity

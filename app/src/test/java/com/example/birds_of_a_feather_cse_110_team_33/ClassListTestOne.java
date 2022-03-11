@@ -143,8 +143,8 @@ public class ClassListTestOne {
         user.setPersonId(0);
         personDao.insert(user);
 
-        String courseString = "CSE 110 Winter 2022";
-        String courseString3 = "CSE 167 Winter 2021";
+        String courseString = "CSE 110 Winter 2022 Tiny";
+        String courseString3 = "CSE 167 Winter 2021 Tiny";
         List<Course> courses = coursesDao.getForPerson(0);
         String courseString2 = courses.get(0).toString();
         String courseString4 = courses.get(1).toString();

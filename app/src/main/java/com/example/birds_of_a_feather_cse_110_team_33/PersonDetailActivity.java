@@ -30,8 +30,8 @@ public class PersonDetailActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager profileLayoutManager;
     private ProfileViewAdapter profileViewAdapter;
     private TextView name;
-    private ImageView photo;
     private ToggleButton favButton;
+    private TextView photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class PersonDetailActivity extends AppCompatActivity {
         // set profile name
         name = findViewById(R.id.profile_name);
         photo = findViewById(R.id.profile_pic);
+        photo.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.default_pp));
         name.setText(person.getName());
 
         // Favorite Button Functionality

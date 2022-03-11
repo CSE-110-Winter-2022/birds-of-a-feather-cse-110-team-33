@@ -38,26 +38,6 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
         this.userId = userId;
     }
 
-    // NOT WORKING, NOT USED
-    // converts string url to drawable to be displayed
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            Log.e("src",src);
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            Log.e("Bitmap","returned");
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Exception",e.getMessage());
-            return null;
-        }
-    }
-
     @NonNull
     @Override
     public PersonsViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -78,8 +58,9 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView personNameView;
-        private final ImageView personImageView;
+        private final TextView personImageView;
         private final TextView sharedCoursesView;
+        private final TextView currentCoursesView;
         private Person person;
 
         ViewHolder(View itemView) {
@@ -87,7 +68,8 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             this.personNameView = itemView.findViewById(R.id.person_row_name);
             this.personImageView = itemView.findViewById(R.id.profile_pic);
             this.sharedCoursesView = itemView.findViewById(R.id.shared_courses);
-
+            this.currentCoursesView = itemView.findViewById(R.id.current_courses);
+            personImageView.setBackgroundDrawable(ContextCompat.getDrawable(personNameView.getContext(), R.drawable.default_pp));
             itemView.setOnClickListener(this);
         }
 
@@ -95,10 +77,10 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             this.person = person;
             this.personNameView.setText(person.getName());
 
-            // NOT DONE!!!!
-            // this.personImageView.setImageBitmap(getBitmapFromURL(person.getPhoto()));
+            personImageView.setBackgroundDrawable(ContextCompat.getDrawable(personNameView.getContext(), R.drawable.default_pp));
 
-            this.sharedCoursesView.setText("Shared Courses: " + person.getNumShared());
+            this.currentCoursesView.setText("Current: " + person.getCurrentShared());
+            this.sharedCoursesView.setText("Total: " + person.getNumShared());
         }
 
         @Override
