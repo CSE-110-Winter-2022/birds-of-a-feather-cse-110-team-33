@@ -48,7 +48,6 @@ public class SizeFilter implements IFilter {
                     curr.setSizeValue(curr.getSizeValue() + .03);
                 }
             }
-            System.out.println(curr.getName() + " : " + curr.getSizeValue());
         }
 
         Collections.sort(persons, new Comparator<Person>() {

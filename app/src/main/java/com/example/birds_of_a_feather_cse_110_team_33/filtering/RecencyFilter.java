@@ -58,7 +58,6 @@ public class RecencyFilter implements IFilter {
                     curr.setRecencyValue(curr.getRecencyValue() + 1);
                 }
             }
-            System.out.println(curr.getName() + " : " + curr.getRecencyValue());
         }
 
         Collections.sort(persons, new Comparator<Person>() {
