@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Birdsofafeathercse110team33">
         <activity
+            android:name=".FavoriteListActivity"
+            android:exported="false" />
+        <activity
             android:name=".ConfirmNameActivity"
             android:exported="false" />
         <activity

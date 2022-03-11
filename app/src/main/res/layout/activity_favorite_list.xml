@@ -4,38 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePageActivity">
+    tools:context=".FavoriteListActivity">
 
     <Button
-        android:id="@+id/start_stop3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="16dp"
-        android:onClick="onMyFavoriteClicked"
-        android:text="My Favorites"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/start_stop"
+        android:id="@+id/start_stop2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:onClick="onStartStopClicked"
-        android:text="Start"
+        android:onClick="onBackClicked"
+        android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/bof"
+        android:id="@+id/favorites_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="76dp"
         android:singleLine="false"
-        android:text="BoFs:"
+        android:text="My Favorites:"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +35,6 @@
         android:layout_width="409dp"
         android:layout_height="626dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bof" />
+        app:layout_constraintTop_toBottomOf="@+id/favorites_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

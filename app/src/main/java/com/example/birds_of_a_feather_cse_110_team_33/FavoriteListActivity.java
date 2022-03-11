@@ -12,11 +12,9 @@ import android.view.View;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class HomePageActivity extends AppCompatActivity {
+public class FavoriteListActivity extends AppCompatActivity {
     private RecyclerView personsRecyclerView;
     private RecyclerView.LayoutManager personsLayoutManager;
     private PersonsViewAdapter personsViewAdapter;
@@ -26,7 +24,7 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_favorite_list);
 
         db = AppDatabase.singleton(this);
         List<Person> persons = db.personDao().getAll();
@@ -36,50 +34,22 @@ public class HomePageActivity extends AppCompatActivity {
         personsLayoutManager = new LinearLayoutManager(this);
         personsRecyclerView.setLayoutManager(personsLayoutManager);
 
-        //remove user from persons list
-        for (Person person: persons) {
-            if (person.getPersonId() == userId) {
-                persons.remove(person);
-                break;
+        // remove non-favorites
+        for (int i = 0; i < persons.size(); i++) {
+            if (persons.get(i).isFavorite == false) {
+                persons.remove(persons.get(i));
+                i--;
             }
         }
-        Person user = db.personDao().get(userId);
-        setTitle(user.getName() + "'s Birds of a Feather");
-
-        //fill Person.num_shared and short
-        setPersonNumShared(persons, user);
-        sortPersonsByNumShared(persons);
 
         personsViewAdapter = new PersonsViewAdapter(persons, userId);
         personsRecyclerView.setAdapter(personsViewAdapter);
     }
 
-
-    public void onStartStopClicked(View view) {
-        // implementation for User Story: ON/OFF Search
-    }
-
-    public void onMyFavoriteClicked(View view) {
+    public void onBackClicked(View view) {
         Context context = view.getContext();
-        Intent intent = new Intent(context, FavoriteListActivity.class);
+        Intent intent = new Intent(context, HomePageActivity.class);
         intent.putExtra("user", userId);
         context.startActivity(intent);
     }
-
-    public void setPersonNumShared(List<Person> persons, Person user){
-        for(Person person: persons){
-            person.setNumShared(db.personDao().
-                                getSharedCourses(person.getPersonId(), user.getPersonId()).size());
-        }
-    }
-
-    public void sortPersonsByNumShared(List<Person> persons){
-        Collections.sort(persons, new Comparator<Person>() {
-            @Override
-            public int compare(Person p1, Person p2) {
-                return p2.getNumShared() - p1.getNumShared();
-            }
-        });
-    }
-
 }

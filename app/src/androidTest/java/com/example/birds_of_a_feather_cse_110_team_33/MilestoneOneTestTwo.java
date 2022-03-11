@@ -388,7 +388,7 @@ public class MilestoneOneTestTwo {
 
         ViewInteraction textView = onView(
                 allOf(withId(R.id.shared_courses), withText("Shared Courses: 1"),
-                        withParent(withParent(withId(R.id.persons_view))),
+                        withParent(withParent(withId(R.id.favorites_view))),
                         isDisplayed()));
         textView.check(matches(withText("Shared Courses: 1")));
     }
