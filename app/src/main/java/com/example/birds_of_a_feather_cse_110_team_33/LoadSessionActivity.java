@@ -68,12 +68,13 @@ public class LoadSessionActivity extends AppCompatActivity {
 
 
         String sessName = preferences.getString("sessionTitle"+sessionChoice,"");
-        Intent intent = new Intent(this, HomePageActivity.class);
+        //Intent intent = new Intent(this, HomePageActivity.class);
 
         Toast.makeText(LoadSessionActivity.this,"Session: " + sessName + " Loading...", Toast.LENGTH_LONG).show();
 
 
-        startActivity(intent);
+        finish();
+        //startActivity(intent);
 
 
     }

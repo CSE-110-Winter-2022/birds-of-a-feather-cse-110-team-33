@@ -22,7 +22,7 @@ import java.util.Locale;
 public class SaveSessionActivity extends AppCompatActivity {
     
     private int currentSessionCount;
-    int userId;
+    //int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,20 +62,20 @@ public class SaveSessionActivity extends AppCompatActivity {
         editor.commit();
 
 
-        Intent intent = new Intent(this, HomePageActivity.class);
+        ///Intent intent = new Intent(this, HomePageActivity.class);
 
         Toast.makeText(SaveSessionActivity.this,"Session Saved As: " + sessionNameString, Toast.LENGTH_LONG).show();
 
 
-        userId = getIntent().getIntExtra("user",1);
+        //userId = getIntent().getIntExtra("user",1);
 
         //intent.putExtra("user",userId);
 
 
 
 
-
-        startActivity(intent);
+        finish();
+        //startActivity(intent);
         
     }
 }

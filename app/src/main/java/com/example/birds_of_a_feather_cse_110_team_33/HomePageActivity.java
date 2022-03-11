@@ -36,6 +36,7 @@ public class HomePageActivity extends AppCompatActivity {
     private CoursesDao coursesDao;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,11 +87,7 @@ public class HomePageActivity extends AppCompatActivity {
 
 
 
-        //New Way to grab user
-        Gson gsonUser = new Gson();
-        String jsonUser = preferences.getString("original user","");
-        Person user = gsonUser.fromJson(jsonUser,Person.class);
-
+        Person user = personDao.get(userId);
 
         //2nd Time this is ran, its a null object
         setTitle(user.getName() + "'s Birds of a Feather");
@@ -212,17 +209,8 @@ public class HomePageActivity extends AppCompatActivity {
 
         //personDao.nukeTable();
         //coursesDao.nukeTable();
-        //db.clearAllTables();
-        List<Person> persons = db.personDao().getAll();
 
-        //Remove all the old people and old courses
-        for (Person person : persons) {
-            List<Course> courses = db.coursesDao().getForPerson(person.getPersonId());
-            for (Course currCourse: courses) {
-                coursesDao.delete(currCourse);
-            }
-            personDao.delete(person);
-        }
+        //db.clearAllTables();
 
 
 
@@ -247,7 +235,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         List<Person> personsToLoad = gson.fromJson(json, personListType);
 
-        List<List<Course>> coursesToLoad = new ArrayList<>();
+       /* List<List<Course>> coursesToLoad = new ArrayList<>();
 
         int coursesForSessionToLoad = personsToLoad.size();
 
@@ -262,34 +250,14 @@ public class HomePageActivity extends AppCompatActivity {
 
             //Fill up our list of lists with each course
             coursesToLoad.add(courseToLoad);
-        }
+        }*/
 
         //We grabbed all the info we need, now simply load it on the page, and wipe the previous data from the database.
 
 
-        //Fill With People
-        for (int i = 0; i < personsToLoad.size(); i++) {
-            personDao.insert(personsToLoad.get(i));
-        }
 
-        //Fill with Courses Corresponding to people
-
-        for (int i = 0; i < personsToLoad.size(); i++) {
-
-            List<Course> currCourseList = coursesToLoad.get(i);
-
-            for (int j = 0; j < currCourseList.size(); j++) {
-                coursesDao.insert(currCourseList.get(j));
-            }
-        }
-
-
-        //People and Courses Filled, Reload Page
-        //Waiting on Ethan to do so
-
-        int userToLoadId = userToLoad.getPersonId();
         // What we are technically supposed to do
-        personsViewAdapter = new PersonsViewAdapter(personsToLoad, userToLoadId);
+        personsViewAdapter = new PersonsViewAdapter(personsToLoad, userId);
         personsRecyclerView.setAdapter(personsViewAdapter);
 
 
