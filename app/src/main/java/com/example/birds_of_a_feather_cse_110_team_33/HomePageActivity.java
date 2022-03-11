@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,21 +20,21 @@ import android.widget.Toast;
 import com.example.birds_of_a_feather_cse_110_team_33.filtering.*;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
+
+
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
-
 
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
 import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -80,9 +84,14 @@ public class HomePageActivity extends AppCompatActivity {
 
         userId = getIntent().getIntExtra("user",1);
 
+
+
         personsRecyclerView = findViewById(R.id.persons_view);
         personsLayoutManager = new LinearLayoutManager(this);
         personsRecyclerView.setLayoutManager(personsLayoutManager);
+
+
+
         filterSpinner = findViewById(R.id.filters_spinner);
 
 
@@ -223,33 +232,29 @@ public class HomePageActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, SaveSessionActivity.class);
 
-
-
-
         startActivity(intent);
 
-
-
-
-
     }
-
 
     public void onStartStopClicked(View view) {
         // implementation for User Story: ON/OFF Search
         Button b = findViewById(R.id.start_stop);
         String text = b.getText().toString();
-
         if (text.equals("Start")) {
             b.setText("Stop");
             personsRecyclerView.setVisibility(View.VISIBLE);
-        }
-        else if (text.equals("Stop")) {
+        } else if (text.equals("Stop")) {
             b.setText("Start");
             personsRecyclerView.setVisibility(View.GONE);
         }
     }
 
+    public void onMyFavoriteClicked(View view) {
+        Context context = view.getContext();
+        Intent intent = new Intent(context, FavoriteListActivity.class);
+        intent.putExtra("user", userId);
+        context.startActivity(intent);
+    }
 
     public void setPersonNumShared(List<Person> persons, Person user){
         for(Person person: persons) {
@@ -264,7 +269,6 @@ public class HomePageActivity extends AppCompatActivity {
         }
     }
 
-
     public void loadSessionBtnClicked(View view) {
 
         //Move to Load Session Page, do work
@@ -272,8 +276,6 @@ public class HomePageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoadSessionActivity.class);
 
         intent.putExtra("sessionCount",sessionCount);
-
-
 
         startActivity(intent);
     }
@@ -290,9 +292,6 @@ public class HomePageActivity extends AppCompatActivity {
         //coursesDao.nukeTable();
 
         //db.clearAllTables();
-
-
-
 
 
         SharedPreferences preferences = getSharedPreferences("pref one",MODE_PRIVATE);

@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         // share all
         Person james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         james.setPersonId(personDao.maxId() + 1);
+        james.setFavorite();
         personDao.insert(james);
         Course james110 = new Course(james.getPersonId(), 2022, "Winter", "CSE", "110", "Tiny");
         Course james112 = new Course(james.getPersonId(), 2022, "Winter", "CSE", "112", "Small");
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         // share none
         Person nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         nick.setPersonId(personDao.maxId() + 1);
+        nick.setNFavorite();
         personDao.insert(nick);
         Course nick110 = new Course(nick.getPersonId(), 2021, "Winter", "CSE", "110", "Tiny");
         Course nick112 = new Course(nick.getPersonId(), 2021, "Winter", "CSE", "112", "Small");
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         // share two
         Person ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         ryan.setPersonId(personDao.maxId() + 1);
+        ryan.setFavorite();
         personDao.insert(ryan);
         Course ryan110 = new Course(ryan.getPersonId(), 2022, "Winter", "CSE", "110", "Tiny");
         Course ryan112 = new Course(ryan.getPersonId(), 2021, "Winter", "CSE", "112", "Small");

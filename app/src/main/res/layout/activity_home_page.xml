@@ -7,6 +7,17 @@
     tools:context=".HomePageActivity">
 
     <Button
+        android:id="@+id/start_stop3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="212dp"
+        android:layout_marginTop="106dp"
+        android:onClick="onMyFavoriteClicked"
+        android:text="My Favorites"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/start_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,7 +64,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <Button
         android:id="@+id/save_session_btn"

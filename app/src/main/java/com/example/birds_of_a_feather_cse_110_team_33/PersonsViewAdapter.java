@@ -8,13 +8,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 

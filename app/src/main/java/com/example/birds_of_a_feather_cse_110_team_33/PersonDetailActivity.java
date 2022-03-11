@@ -5,11 +5,15 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
@@ -26,6 +30,7 @@ public class PersonDetailActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager profileLayoutManager;
     private ProfileViewAdapter profileViewAdapter;
     private TextView name;
+    private ToggleButton favButton;
     private TextView photo;
 
     @Override
@@ -49,6 +54,38 @@ public class PersonDetailActivity extends AppCompatActivity {
         photo = findViewById(R.id.profile_pic);
         photo.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.default_pp));
         name.setText(person.getName());
+
+        // Favorite Button Functionality
+        favButton = (ToggleButton) findViewById(R.id.favorite);
+        favButton.setChecked(person.isFavorite);
+        favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_off));
+
+        // Initialize correct button states
+        if(person.isFavorite) {
+            favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_on));
+        } else {
+            favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_off));
+        }
+        favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+                CharSequence text;
+                if (isChecked) {
+                    favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_on));
+                    person.setFavorite();
+                    text = "Favorite Added";
+                } else {
+                    favButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fav_off));
+                    person.setNFavorite();
+                    text = "Favorite Removed";
+                }
+                db.personDao().update(person);
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
 
         // set profile picture, not working yet
         // photo.setImageBitmap(person.getString());
