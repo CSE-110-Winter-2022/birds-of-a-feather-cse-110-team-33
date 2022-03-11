@@ -1,12 +1,13 @@
 package com.example.birds_of_a_feather_cse_110_team_33;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 
 import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.example.birds_of_a_feather_cse_110_team_33.filtering.*;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
@@ -17,24 +18,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RunWith(RobolectricTestRunner.class)
-public class ClassMatchingTest {
+public class RecencyFilterTest {
     private PersonDao personDao;
-    private CoursesDao coursesDao;
     private AppDatabase db;
     private Person james;
     private Person nick;
     private Person ryan;
+    private Person ethan;
+    private CoursesDao coursesDao;
 
 
     @Before
-    public void createDb() {
+    public void setupTestDb() {
         Context context = ApplicationProvider.getApplicationContext();
         AppDatabase.useTestSingleton(context);
         db = AppDatabase.singleton(context);
@@ -43,8 +43,24 @@ public class ClassMatchingTest {
 
         // PREPOPULATE DATABASE
 
+        ethan = new Person("Ethan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        ethan.setPersonId(personDao.maxId() + 1);
+        personDao.insert(ethan);
+        Course ethan110 = new Course(ethan.getPersonId(), 2022, "Winter", "CSE", "110", "Tiny");
+        Course ethan112 = new Course(ethan.getPersonId(), 2022, "Winter", "CSE", "112", "Small");
+        Course ethan132A = new Course(ethan.getPersonId(), 2022, "Spring", "CSE", "132A", "Large");
+        Course ethanNew1 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "110", "Tiny");
+        Course ethanNew2 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "112", "Small");
+        Course ethanNew3 = new Course(ethan.getPersonId(), 2021, "Spring", "CSE", "132A", "Large");
+        coursesDao.insert(ethan110);
+        coursesDao.insert(ethan112);
+        coursesDao.insert(ethan132A);
+        coursesDao.insert(ethanNew1);
+        coursesDao.insert(ethanNew2);
+        coursesDao.insert(ethanNew3);
+
         // share all
-        Person james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         james.setPersonId(personDao.maxId() + 1);
         personDao.insert(james);
         Course james110 = new Course(james.getPersonId(), 2022, "Winter", "CSE", "110","Tiny");
@@ -55,7 +71,7 @@ public class ClassMatchingTest {
         coursesDao.insert(james132A);
 
         // share none
-        Person nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         nick.setPersonId(personDao.maxId() + 1);
         personDao.insert(nick);
         Course nick110 = new Course(nick.getPersonId(), 2021, "Winter", "CSE", "110","Tiny");
@@ -66,7 +82,7 @@ public class ClassMatchingTest {
         coursesDao.insert(nick132A);
 
         // share two
-        Person ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         ryan.setPersonId(personDao.maxId() + 1);
         personDao.insert(ryan);
         Course ryan110 = new Course(ryan.getPersonId(), 2022, "Winter", "CSE", "110","Tiny");
@@ -78,29 +94,15 @@ public class ClassMatchingTest {
     }
 
     @After
-    public void closeDb() throws IOException {
+    public void closeDb() {
         db.close();
     }
 
     @Test
-    public void testRemoveUser() throws Exception {
-        // created new user
-        Person ethan = new Person("Ethan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
-        ethan.setPersonId(personDao.maxId() + 1);
-        personDao.insert(ethan);
-        Course ethan110 = new Course(ethan.getPersonId(), 2022, "Winter", "CSE", "110", "Tiny");
-        Course ethan112 = new Course(ethan.getPersonId(), 2022, "Winter", "CSE", "112", "Small");
-        Course ethan132A = new Course(ethan.getPersonId(), 2022, "Spring", "CSE", "132A", "Large");
-        coursesDao.insert(ethan110);
-        coursesDao.insert(ethan112);
-        coursesDao.insert(ethan132A);
-
-        assertEquals(4, ethan.getPersonId());
-
-        // get all people
+    public void testRecencyFilter() {
+        HomePageActivity activity = Robolectric.setupActivity(HomePageActivity.class);
+        IFilter filter = new RecencyFilter(activity.getApplicationContext(), ethan.getPersonId());
         List<Person> persons = db.personDao().getAll();
-
-        assertEquals(persons.size(), 4);
 
         // remove user
         for (Person person: persons) {
@@ -110,32 +112,21 @@ public class ClassMatchingTest {
             }
         }
 
-        assertEquals(ethan.getNumShared(), 0);
-        assertEquals(persons.size(), 3);
-    }
+        filter.filter(persons);
 
-    @Test
-    public void testMatching() throws Exception {
-        // get all people
-        List<Person> persons = db.personDao().getAll();
-        HomePageActivity activity = Robolectric.setupActivity(HomePageActivity.class);
-
-        // remove user
-        for (Person person: persons) {
-            if (person.getPersonId() == james.getPersonId()) {
-                persons.remove(person);
-                break;
+        for (int i = 0; i < persons.size(); i++) {
+            Person curr = persons.get(i);
+            if (i == 0) {
+                assertTrue(curr.getName().equals("Nick"));
+                assertEquals(7.0, curr.getRecencyValue(), 0.1);
             }
-        }
-
-        activity.setPersonNumShared(persons, james);
-
-        for (Person compared: persons) {
-            if (compared.getPersonId() == nick.getPersonId()) {
-                assertEquals(0, compared.getNumShared());
+            else if (i == 1) {
+                assertTrue(curr.getName().equals("Ryan"));
+                assertEquals(2.0, curr.getRecencyValue(), 0.1);
             }
-            else if (compared.getPersonId() == ryan.getPersonId()) {
-                assertEquals(1, compared.getNumShared());
+            else if (i == 2) {
+                assertTrue(curr.getName().equals("James"));
+                assertEquals(0.0, curr.getRecencyValue(), 0.1);
             }
         }
     }
