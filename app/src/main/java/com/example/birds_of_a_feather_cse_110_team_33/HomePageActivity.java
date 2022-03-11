@@ -84,9 +84,14 @@ public class HomePageActivity extends AppCompatActivity {
 
         userId = getIntent().getIntExtra("user",1);
 
-        personsRecyclerView = findViewById(R.id.favorites_view);
+
+
+        personsRecyclerView = findViewById(R.id.persons_view);
         personsLayoutManager = new LinearLayoutManager(this);
         personsRecyclerView.setLayoutManager(personsLayoutManager);
+
+
+
         filterSpinner = findViewById(R.id.filters_spinner);
 
 

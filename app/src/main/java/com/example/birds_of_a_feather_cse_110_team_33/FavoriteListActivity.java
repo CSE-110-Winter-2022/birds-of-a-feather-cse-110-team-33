@@ -41,15 +41,32 @@ public class FavoriteListActivity extends AppCompatActivity {
                 i--;
             }
         }
+        Person user = db.personDao().get(userId);
+        setPersonNumShared(persons,user);
 
         personsViewAdapter = new PersonsViewAdapter(persons, userId);
         personsRecyclerView.setAdapter(personsViewAdapter);
+
     }
 
     public void onBackClicked(View view) {
-        Context context = view.getContext();
+        /*Context context = view.getContext();
         Intent intent = new Intent(context, HomePageActivity.class);
         intent.putExtra("user", userId);
-        context.startActivity(intent);
+        context.startActivity(intent);*/
+        finish();
+    }
+
+    public void setPersonNumShared(List<Person> persons, Person user){
+        for(Person person: persons) {
+            person.setNumShared(db.personDao().
+                    getSharedCourses(person.getPersonId(), user.getPersonId()).size());
+        }
+
+        for(Person person: persons) {
+            person.setCurrentShared(db.personDao().
+                    getCurrentSharedCourses(person.getPersonId(), user.getPersonId(),
+                            getString(R.string.current_qtr), getResources().getInteger(R.integer.current_year)).size());
+        }
     }
 }
