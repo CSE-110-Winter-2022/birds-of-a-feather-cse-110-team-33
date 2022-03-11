@@ -33,10 +33,14 @@
         <item>Gigantic (400+)</item>
     </string-array>
 
+    <string-array name="saved_sessions_list">
+    </string-array>
+
     <string-array name="filters">
         <item>Total Shared Classes</item>
         <item>Current Shared Classes</item>
         <item>Class Size</item>
         <item>Recency</item>
+
     </string-array>
 </resources>
