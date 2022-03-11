@@ -8,33 +8,49 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.example.birds_of_a_feather_cse_110_team_33.filtering.*;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
+
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Course;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.CoursesDao;
+
+
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
     private RecyclerView personsRecyclerView;
     private RecyclerView.LayoutManager personsLayoutManager;
     private PersonsViewAdapter personsViewAdapter;
+    private Spinner filterSpinner;
     private AppDatabase db;
     private int userId;
+
     private int sessionCount;
     private boolean approvalToLoadNewSession;
     private int sessionToLoad;
     private PersonDao personDao;
     private CoursesDao coursesDao;
 
+
+
+    private IFilter filter;
+    private Person user;
 
 
     @Override
@@ -55,15 +71,20 @@ public class HomePageActivity extends AppCompatActivity {
 
         db = AppDatabase.singleton(this);
 
+
         personDao = db.personDao();
         coursesDao = db.coursesDao();
 
         List<Person> persons = db.personDao().getAll();
+
+
         userId = getIntent().getIntExtra("user",1);
 
         personsRecyclerView = findViewById(R.id.persons_view);
         personsLayoutManager = new LinearLayoutManager(this);
         personsRecyclerView.setLayoutManager(personsLayoutManager);
+        filterSpinner = findViewById(R.id.filters_spinner);
+
 
 
         if (initialCount  != 0) {
@@ -87,14 +108,68 @@ public class HomePageActivity extends AppCompatActivity {
 
 
 
-        Person user = personDao.get(userId);
+        user = personDao.get(userId);
 
         //2nd Time this is ran, its a null object
+
+        user = db.personDao().get(userId);
+
         setTitle(user.getName() + "'s Birds of a Feather");
 
-        //fill Person.num_shared and short
-        setPersonNumShared(persons, user);
-        sortPersonsByNumShared(persons);
+        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                List<Person> person = db.personDao().getAll();
+                //remove user from persons list
+                for (Person ppl: person) {
+                    if (ppl.getPersonId() == userId) {
+                        person.remove(ppl);
+                        break;
+                    }
+                }
+                setPersonNumShared(person, user);
+
+                switch(position) {
+                    case 0:
+                        filter = new TotalFilter();
+                        break;
+                    case 1:
+                        filter = new CurrentFilter();
+                        break;
+                    case 2:
+                        filter = new SizeFilter(getApplicationContext(), userId);
+                        break;
+                    case 3:
+                        filter = new RecencyFilter(getApplicationContext(), userId);
+                        break;
+                }
+                filter.filter(person);
+                personsViewAdapter = new PersonsViewAdapter(person, userId);
+                personsRecyclerView.setAdapter(personsViewAdapter);
+
+                Toast.makeText(getApplicationContext(),"Filtering...", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                List<Person> person = db.personDao().getAll();
+                //remove user from persons list
+                for (Person ppl: person) {
+                    if (ppl.getPersonId() == userId) {
+                        person.remove(ppl);
+                        break;
+                    }
+                }
+                setPersonNumShared(person, user);
+
+                filter = new TotalFilter();
+                filter.filter(person);
+                personsViewAdapter = new PersonsViewAdapter(person, userId);
+                personsRecyclerView.setAdapter(personsViewAdapter);
+            }
+
+        });
+
 
         personsViewAdapter = new PersonsViewAdapter(persons, userId);
         personsRecyclerView.setAdapter(personsViewAdapter);
@@ -166,25 +241,33 @@ public class HomePageActivity extends AppCompatActivity {
 
     public void onStartStopClicked(View view) {
         // implementation for User Story: ON/OFF Search
+        Button b = findViewById(R.id.start_stop);
+        String text = b.getText().toString();
 
-
+        if (text.equals("Start")) {
+            b.setText("Stop");
+            personsRecyclerView.setVisibility(View.VISIBLE);
+        }
+        else if (text.equals("Stop")) {
+            b.setText("Start");
+            personsRecyclerView.setVisibility(View.GONE);
+        }
     }
 
-    public void setPersonNumShared(List<Person> persons, Person user) {
+
+    public void setPersonNumShared(List<Person> persons, Person user){
         for(Person person: persons) {
             person.setNumShared(db.personDao().
                                 getSharedCourses(person.getPersonId(), user.getPersonId()).size());
         }
+
+        for(Person person: persons) {
+            person.setCurrentShared(db.personDao().
+                    getCurrentSharedCourses(person.getPersonId(), user.getPersonId(),
+                            getString(R.string.current_qtr), getResources().getInteger(R.integer.current_year)).size());
+        }
     }
 
-    public void sortPersonsByNumShared(List<Person> persons){
-        Collections.sort(persons, new Comparator<Person>() {
-            @Override
-            public int compare(Person p1, Person p2) {
-                return p2.getNumShared() - p1.getNumShared();
-            }
-        });
-    }
 
     public void loadSessionBtnClicked(View view) {
 
@@ -266,4 +349,5 @@ public class HomePageActivity extends AppCompatActivity {
 
 
     }
+
 }

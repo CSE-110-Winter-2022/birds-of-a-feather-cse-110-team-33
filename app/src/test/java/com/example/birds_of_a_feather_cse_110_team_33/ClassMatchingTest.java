@@ -44,34 +44,39 @@ public class ClassMatchingTest {
         // PREPOPULATE DATABASE
 
         // share all
-        james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        Person james = new Person("James", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         james.setPersonId(personDao.maxId() + 1);
         personDao.insert(james);
-        Course james110 = new Course(james.getPersonId(), 2021, "Winter", "CSE", "110","Tiny");
-        Course james112 = new Course(james.getPersonId(), 2021, "Winter", "CSE", "112","Tiny");
-        Course james132A = new Course(james.getPersonId(), 2021, "Spring", "CSE", "132A","Tiny");
+
+        Course james110 = new Course(james.getPersonId(), 2022, "Winter", "CSE", "110","Tiny");
+        Course james112 = new Course(james.getPersonId(), 2022, "Winter", "CSE", "112","Small");
+        Course james132A = new Course(james.getPersonId(), 2022, "Spring", "CSE", "132A","Large");
         coursesDao.insert(james110);
         coursesDao.insert(james112);
         coursesDao.insert(james132A);
 
         // share none
-        nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        Person nick = new Person("Nick", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         nick.setPersonId(personDao.maxId() + 1);
         personDao.insert(nick);
-        Course nick110 = new Course(nick.getPersonId(), 2022, "Winter", "CSE", "110","Tiny");
-        Course nick112 = new Course(nick.getPersonId(), 2022, "Winter", "CSE", "112","Tiny");
-        Course nick132A = new Course(nick.getPersonId(), 2022, "Spring", "CSE", "132A","Tiny");
+
+        Course nick110 = new Course(nick.getPersonId(), 2021, "Winter", "CSE", "110","Tiny");
+        Course nick112 = new Course(nick.getPersonId(), 2021, "Winter", "CSE", "112","Small");
+        Course nick132A = new Course(nick.getPersonId(), 2021, "Spring", "CSE", "132A","Large");
+
         coursesDao.insert(nick110);
         coursesDao.insert(nick112);
         coursesDao.insert(nick132A);
 
-        // share one
-        ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
+        // share two
+        Person ryan = new Person("Ryan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         ryan.setPersonId(personDao.maxId() + 1);
         personDao.insert(ryan);
-        Course ryan110 = new Course(ryan.getPersonId(), 2021, "Winter", "CSE", "110","Tiny");
-        Course ryan112 = new Course(ryan.getPersonId(), 2022, "Winter", "CSE", "112","Tiny");
-        Course ryan132A = new Course(ryan.getPersonId(), 2022, "Spring", "CSE", "132A","Tiny");
+
+        Course ryan110 = new Course(ryan.getPersonId(), 2022, "Winter", "CSE", "110","Tiny");
+        Course ryan112 = new Course(ryan.getPersonId(), 2021, "Winter", "CSE", "112","Small");
+        Course ryan132A = new Course(ryan.getPersonId(), 2022, "Spring", "CSE", "132A","Large");
+
         coursesDao.insert(ryan110);
         coursesDao.insert(ryan112);
         coursesDao.insert(ryan132A);
@@ -88,9 +93,12 @@ public class ClassMatchingTest {
         Person ethan = new Person("Ethan", "https://i.kym-cdn.com/photos/images/original/001/431/201/40f.png");
         ethan.setPersonId(personDao.maxId() + 1);
         personDao.insert(ethan);
-        Course ethan110 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "110","Tiny");
-        Course ethan112 = new Course(ethan.getPersonId(), 2021, "Winter", "CSE", "112","Tiny");
-        Course ethan132A = new Course(ethan.getPersonId(), 2021, "Spring", "CSE", "132A","Tiny");
+
+
+        Course ethan110 = new Course(ethan.getPersonId(), 2022, "Winter", "CSE", "110", "Tiny");
+        Course ethan112 = new Course(ethan.getPersonId(), 2022, "Winter", "CSE", "112", "Small");
+        Course ethan132A = new Course(ethan.getPersonId(), 2022, "Spring", "CSE", "132A", "Large");
+
         coursesDao.insert(ethan110);
         coursesDao.insert(ethan112);
         coursesDao.insert(ethan132A);
@@ -136,35 +144,6 @@ public class ClassMatchingTest {
             }
             else if (compared.getPersonId() == ryan.getPersonId()) {
                 assertEquals(1, compared.getNumShared());
-            }
-        }
-    }
-
-    @Test
-    public void testSort() throws Exception {
-        // get all people
-        List<Person> persons = db.personDao().getAll();
-        HomePageActivity activity = Robolectric.setupActivity(HomePageActivity.class);
-
-        for (Person person: persons) {
-            if (person.getPersonId() == james.getPersonId()) {
-                persons.remove(person);
-                break;
-            }
-        }
-
-        activity.setPersonNumShared(persons, james);
-        activity.sortPersonsByNumShared(persons);
-
-        for (int i = 0; i < persons.size(); i++) {
-            Person current = persons.get(i);
-            if (i == 0) {
-                assertEquals(current.getNumShared(), 1);
-                assertEquals(current.getName(), "Ryan");
-            }
-            else if (i == 1) {
-                assertEquals(current.getNumShared(), 0);
-                assertEquals(current.getName(), "Nick");
             }
         }
     }
