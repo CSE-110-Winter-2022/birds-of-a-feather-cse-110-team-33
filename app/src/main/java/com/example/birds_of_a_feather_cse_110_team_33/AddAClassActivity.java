@@ -146,15 +146,12 @@ public class AddAClassActivity extends AppCompatActivity {
             return;
         }
 
-        if (courseNumString.length() > 4 || courseNumString.length() < 3) {
-            Toast.makeText(AddAClassActivity.this,"Course Number must be between 3 and 4 Characters Long!", Toast.LENGTH_SHORT).show();
+        if (courseNumString.length() > 4 || courseNumString.length() < 2) {
+            Toast.makeText(AddAClassActivity.this,"Course Number must be between 2 and 4 Characters Long!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (courseNumString.length() > 4 || courseNumString.length() < 3) {
-            Toast.makeText(AddAClassActivity.this,"Course Number must be between 3 and 4 Characters Long!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
 
 
         char CNSArray[] = courseNameString.toCharArray();
