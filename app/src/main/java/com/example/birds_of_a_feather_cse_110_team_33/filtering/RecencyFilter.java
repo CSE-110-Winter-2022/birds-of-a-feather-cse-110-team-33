@@ -63,6 +63,11 @@ public class RecencyFilter implements IFilter {
         Collections.sort(persons, new Comparator<Person>() {
             @Override
             public int compare(Person p1, Person p2) {
+                if(p1.waved() && !p2.waved()) {
+                    return 1;
+                } else if(p2.waved() && !p1.waved()) {
+                    return -1;
+                }
                 return Double.compare(p2.getRecencyValue(), p1.getRecencyValue());
             }
         });

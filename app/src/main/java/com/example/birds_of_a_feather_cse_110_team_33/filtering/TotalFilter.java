@@ -15,6 +15,11 @@ public class TotalFilter implements IFilter {
         Collections.sort(persons, new Comparator<Person>() {
             @Override
             public int compare(Person p1, Person p2) {
+                if(p1.waved() && !p2.waved()) {
+                    return 1;
+                } else if(p2.waved() && !p1.waved()) {
+                    return -1;
+                }
                 return p2.getNumShared() - p1.getNumShared();
             }
         });

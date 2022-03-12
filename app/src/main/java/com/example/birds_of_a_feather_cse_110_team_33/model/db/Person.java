@@ -37,6 +37,12 @@ public class Person {
     @ColumnInfo(name = "recency_value")
     public double recency_value;
 
+    @ColumnInfo(name = "uuid")
+    public String uuid;
+
+    @ColumnInfo(name = "waved")
+    public boolean waved;
+
     public Person(String name, String photo) {
         this.name = name;
         this.photo = photo;
@@ -56,6 +62,12 @@ public class Person {
     public boolean getFavorite() { return isFavorite; }
     public void setFavorite() { this.isFavorite = true; }
     public void setNFavorite() { this.isFavorite = false; }
+
+    public void setUuid(String uuid) {this.uuid = uuid;}
+    public String getUuid() {return this.uuid;}
+
+    public void receivedWave() {this.waved = true;}
+    public boolean waved() {return this.waved;}
 
     public int getCurrentShared() { return current_shared; }
     public void setCurrentShared(int num_shared) { this.current_shared = num_shared; }

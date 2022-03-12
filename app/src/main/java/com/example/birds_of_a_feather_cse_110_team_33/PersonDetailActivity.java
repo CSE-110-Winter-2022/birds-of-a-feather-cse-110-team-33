@@ -26,6 +26,7 @@ public class PersonDetailActivity extends AppCompatActivity {
     private AppDatabase db;
     private Person person;
     private int userId;
+    private static final boolean MOCK_WAVED = true;
 
     private RecyclerView profileRecyclerView;
     private RecyclerView.LayoutManager profileLayoutManager;
@@ -73,6 +74,12 @@ public class PersonDetailActivity extends AppCompatActivity {
                 CharSequence text = "Waved";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+                if(MOCK_WAVED) {
+                    person.receivedWave();
+                    db.personDao().update(person);
+                } else {
+
+                }
             }
         });
 

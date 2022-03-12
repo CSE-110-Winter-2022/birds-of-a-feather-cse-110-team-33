@@ -14,6 +14,8 @@ import com.example.birds_of_a_feather_cse_110_team_33.model.db.AppDatabase;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.Person;
 import com.example.birds_of_a_feather_cse_110_team_33.model.db.PersonDao;
 
+import java.util.UUID;
+
 public class ConfirmNameActivity extends AppCompatActivity {
     private PersonDao personDao;
     private AppDatabase db;
@@ -50,6 +52,7 @@ public class ConfirmNameActivity extends AppCompatActivity {
         TextView viewName = findViewById(R.id.user_name);
         String name = viewName.getText().toString();
         Person user = new Person(name, null);
+        user.setUuid(UUID.randomUUID().toString());
         user.setPersonId(personDao.maxId() + 1);
         personDao.insert(user);
 
